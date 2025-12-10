@@ -206,9 +206,7 @@ export default {
 <style lang="scss">
 @font-face {
   font-family: 'LiberationMono';
-  src:
-    url('@/assets/fonts/LiberationMono-Bold.woff2') format('woff2'),
-    url('@/assets/fonts/LiberationMono-Bold.woff2') format('woff');
+  src: url('@/assets/fonts/LiberationMono-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -216,9 +214,7 @@ export default {
 
 @font-face {
   font-family: 'LiberationMono';
-  src:
-    url('@/assets/fonts/LiberationMono.woff2') format('woff2'),
-    url('@/assets/fonts/LiberationMono.woff') format('woff');
+  src: url('@/assets/fonts/LiberationMono.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
