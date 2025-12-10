@@ -208,7 +208,7 @@ export default {
   font-family: 'LiberationMono';
   src:
     url('@/assets/fonts/LiberationMono-Bold.woff2') format('woff2'),
-    url('@/assets/fonts/YourFont-Regular.woff') format('woff');
+    url('@/assets/fonts/LiberationMono-Bold.woff2') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
