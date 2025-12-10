@@ -25,7 +25,7 @@
           <div class="recommendation__title">Советы на сегодня</div>
         </div>
         <BaseInnerItem :innerItems="innerItemsRecommendations" variant="secondary">
-          <!-- <template #innerItem="{ item }">
+          <template #innerItem="{ item }">
             <div class="recommendation-card">
               <div class="recommendation-card__heading">
                 <p class="recommendation-card__icon">{{ item.icon }}</p>
@@ -33,10 +33,10 @@
               </div>
               <p class="recommendation-card__text">{{ item.text }}</p>
             </div>
-          </template> -->
+          </template>
         </BaseInnerItem>
         <BaseInnerItem :innerItems="innerItemsAttention" variant="orange">
-          <!-- <template #innerItem="{ item }">
+          <template #innerItem="{ item }">
             <div class="attention-card">
               <p class="attention-card__icon">{{ item.icon }}</p>
               <div class="attention-card__content">
@@ -44,7 +44,7 @@
                 <p class="attention-card__text">{{ item.text }}</p>
               </div>
             </div>
-          </template> -->
+          </template>
         </BaseInnerItem>
       </div>
     </div>
