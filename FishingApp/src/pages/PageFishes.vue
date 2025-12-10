@@ -55,8 +55,8 @@ export default {
       ],
       cards: [
         {
-          logo: '/image/icon/shcuka.png',
-          image: '/image/fish-card-image/fish-one.webp',
+          logo: '/fishing-app/image/icon/shcuka.png',
+          image: '/fishing-app/image/fish-card-image/fish-one.webp',
           tag: 'Весна',
           latinName: 'Esox lucius',
           title: 'Щука',
@@ -64,8 +64,8 @@ export default {
           temperature: '8-18°C',
         },
         {
-          logo: '/image/icon/shcuka.png',
-          image: '/image/fish-card-image/fish-two.webp',
+          logo: '/fishing-app/image/icon/shcuka.png',
+          image: '/fishing-app/image/fish-card-image/fish-two.webp',
           tag: 'Осень',
           latinName: 'Esox lucius',
           title: 'Судак',
@@ -73,8 +73,8 @@ export default {
           temperature: '12-22°C',
         },
         {
-          logo: '/image/icon/shcuka.png',
-          image: '/image/fish-card-image/fish-three.webp',
+          logo: '/fishing-app/image/icon/shcuka.png',
+          image: '/fishing-app/image/fish-card-image/fish-three.webp',
           tag: 'Зима',
           latinName: 'Esox lucius',
           title: 'Карп',
@@ -82,8 +82,8 @@ export default {
           temperature: '18-25°C',
         },
         {
-          logo: '/image/icon/shcuka.png',
-          image: '/image/fish-card-image/fish-three.webp',
+          logo: '/fishing-app/image/icon/shcuka.png',
+          image: '/fishing-app/image/fish-card-image/fish-three.webp',
           tag: 'Лето',
           latinName: 'Esox lucius',
           title: 'Карп',
@@ -91,8 +91,8 @@ export default {
           temperature: '18-25°C',
         },
         {
-          logo: '/image/icon/shcuka.png',
-          image: '/image/fish-card-image/fish-three.webp',
+          logo: '/fishing-app/image/icon/shcuka.png',
+          image: '/fishing-app/image/fish-card-image/fish-three.webp',
           tag: 'Весна',
           latinName: 'Esox lucius',
           title: 'Карп',
@@ -100,8 +100,8 @@ export default {
           temperature: '18-25°C',
         },
         {
-          logo: '/image/icon/shcuka.png',
-          image: '/image/fish-card-image/fish-three.webp',
+          logo: '/fishing-app/image/icon/shcuka.png',
+          image: '/fishing-app/image/fish-card-image/fish-three.webp',
           tag: 'Весна',
           latinName: 'Esox lucius',
           title: 'Карп',
