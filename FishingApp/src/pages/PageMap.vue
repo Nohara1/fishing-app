@@ -10,8 +10,8 @@
           <BaseInfoCard class="info--weather">
             <template #heading>
               <div class="info__heading">
-                <div class="info__heading-icon">{{ weather.icon }}</div>
-                <div class="info__heading-title">{{ weather.title }}</div>
+                <p class="info__heading-icon u-icon">{{ weather.icon }}</p>
+                <h2 class="info__heading-title u-heading">{{ weather.title }}</h2>
               </div>
             </template>
             <div class="info__content">
@@ -32,8 +32,8 @@
           <BaseInfoCard class="info--reservoirs">
             <template #heading>
               <div class="info__heading">
-                <div class="info__heading-icon">{{ reservoirs.icon }}</div>
-                <div class="info__heading-title">{{ reservoirs.title }}</div>
+                <p class="info__heading-icon u-icon">{{ reservoirs.icon }}</p>
+                <h2 class="info__heading-title u-heading">{{ reservoirs.title }}</h2>
               </div>
             </template>
             <div class="info__content">
@@ -76,6 +76,7 @@
 </template>
 <script>
 // import BaseHeader from '@/components/ui/BaseHeader.vue'
+import BaseInfoCard from '@/components/ui/BaseInfoCard.vue'
 import BaseInput from '@/components/ui/BaseInput.vue'
 
 export default {
@@ -83,6 +84,7 @@ export default {
   components: {
     // BaseHeader,
     BaseInput,
+    BaseInfoCard,
   },
   props: {
     temp: Number,

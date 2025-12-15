@@ -1,8 +1,8 @@
 <template>
   <div class="list">
     <div class="list__inner">
-      <h2 v-if="heading" class="list__heading">
-        <p v-if="icon" class="list__icon">{{ icon }}</p>
+      <h2 v-if="heading" class="list__heading u-heading">
+        <p v-if="icon" class="list__icon u-icon">{{ icon }}</p>
         {{ heading }}
       </h2>
       <ul class="list__items">

@@ -126,6 +126,10 @@ export default {
             moon: this.moon.age,
             visibility: this.weather.visibility,
           },
+          weekForecast: {
+            lat: this.coordsLatitude,
+            long: this.coordsLongitude,
+          },
           todayWeather: this.todayWeather,
         }
       }

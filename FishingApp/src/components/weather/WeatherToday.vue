@@ -1,5 +1,5 @@
 <template>
-  <div class="weather-today">
+  <div class="weather-container">
     <div class="forecast">
       <div class="forecast__inner">
         <BaseList :lists="todayWeather" :heading="listHeading">
@@ -22,7 +22,7 @@
     <div class="recommendation">
       <div class="recommendation__inner">
         <div class="recommendation__header">
-          <div class="recommendation__title">Советы на сегодня</div>
+          <h2 class="recommendation__title u-heading">Советы на сегодня</h2>
         </div>
         <BaseInnerItem :innerItems="innerItemsRecommendations" variant="secondary">
           <template #innerItem="{ item }">
@@ -105,11 +105,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.weather-today {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
 .forecast {
   &__item {
     border-radius: 18px;

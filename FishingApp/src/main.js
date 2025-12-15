@@ -7,6 +7,9 @@ import router from '@/router/router.js'
 import directives from '@/directives/index'
 import store from './components/store'
 
+/** style **/
+import '@/scss/utility.scss'
+
 import { createYmaps } from 'vue-yandex-maps'
 import App from './App.vue'
 

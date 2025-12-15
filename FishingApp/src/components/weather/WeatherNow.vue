@@ -1,23 +1,23 @@
 <template>
-  <div class="weather-now">
+  <div class="weather-container">
     <div class="location">
       <div class="location__inner">
-        <div class="location__title">📍 {{ weatherLocation }}</div>
+        <p class="location__title">📍 {{ weatherLocation }}</p>
         <div class="location__header">
-          <div class="location__icon">⛅</div>
+          <p class="location__icon u-icon">⛅</p>
           <div class="location__content">
-            <div class="location__temp">{{ weatherTemp }}</div>
-            <div class="location__desc">{{ weatherCloud }}</div>
+            <p class="location__temp">{{ weatherTemp }}</p>
+            <p class="location__desc">{{ weatherCloud }}</p>
           </div>
         </div>
         <div class="location__body">
           <div class="location__metric location__metric--water">
-            <div class="location__metric-value">15°C</div>
-            <div class="location__metric-name">Вода</div>
+            <p class="location__metric-value">15°C</p>
+            <p class="location__metric-name">Вода</p>
           </div>
           <div class="location__metric">
-            <div class="location__metric-value">{{ weatherSpeed }}</div>
-            <div class="location__metric-name">Ветер</div>
+            <p class="location__metric-value">{{ weatherSpeed }}</p>
+            <p class="location__metric-name">Ветер</p>
           </div>
         </div>
       </div>
@@ -25,15 +25,15 @@
     <div class="conditions">
       <div class="conditions__inner">
         <div class="conditions__result">
-          <div class="conditions__result-icon">🎣</div>
+          <p class="conditions__result-icon u-icon">🎣</p>
           <div class="conditions__result-value">
             <span>{{ totalScore }}</span
             >/100
           </div>
         </div>
         <div class="conditions__header">
-          <div class="conditions__title">Условия для рыбалки:{{ conditions }}</div>
-          <div class="conditions__subtitle">Идеальные условия для ловли щуки и окуня!</div>
+          <p class="conditions__title">Условия для рыбалки:{{ conditions }}</p>
+          <p class="conditions__subtitle">Идеальные условия для ловли щуки и окуня!</p>
         </div>
         <BaseInnerItem :innerItems="innerItemsConditions" variant="secondary"> </BaseInnerItem>
       </div>
@@ -224,11 +224,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.weather-now {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
 .location {
   &__inner {
     width: 100%;
