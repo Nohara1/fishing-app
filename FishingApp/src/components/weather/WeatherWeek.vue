@@ -66,12 +66,22 @@ export default {
     },
   },
   computed: {
-    // weekWeather() {
-    //   if (!this.weatherWeek) return []
-    //   const data = this.weatherWeek.data
-    //   console.log(data)
-    //   return data.map((item) => this.weatherWeek.map(item))
-    // },
+    weekWeather() {
+      if (!this.weatherWeek) return []
+
+      const data = this.weatherWeek.daily.time.length
+
+      console.log(data)
+
+      for(let i = 0; i < this.weatherWeek.daily.time.length; i++ ){
+         console.log(this.weatherWeek.daily.time[i])
+         console.log(this.weatherWeek.daily.daylight_duration[i])
+         console.log(this.weatherWeek.daily.temperature_2m_max[i])
+         console.log(this.weatherWeek.daily.sunrise[i])
+      }
+
+      return
+    },
   },
   mounted() {
     this.fetchWeatherWeek()
