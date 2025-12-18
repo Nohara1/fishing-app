@@ -68,19 +68,20 @@ export default {
   computed: {
     weekWeather() {
       if (!this.weatherWeek) return []
-
       const data = this.weatherWeek.daily.time.length
-
+      let arr = []
       console.log(data)
 
-      for(let i = 0; i < this.weatherWeek.daily.time.length; i++ ){
-         console.log(this.weatherWeek.daily.time[i])
-         console.log(this.weatherWeek.daily.daylight_duration[i])
-         console.log(this.weatherWeek.daily.temperature_2m_max[i])
-         console.log(this.weatherWeek.daily.sunrise[i])
+      for (let i = 0; i < data; i++) {
+        arr.push({
+          time: this.weatherWeek.daily.time[i],
+          daylight: this.weatherWeek.daily.daylight_duration[i],
+          temp: this.weatherWeek.daily.temperature_2m_max[i],
+          sunrise: this.weatherWeek.daily.sunrise[i],
+        })
       }
-
-      return
+      console.log(arr)
+      return arr
     },
   },
   mounted() {
