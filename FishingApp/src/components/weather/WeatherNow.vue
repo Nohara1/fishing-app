@@ -4,7 +4,13 @@
       <div class="location__inner">
         <p class="location__title">📍 {{ weatherLocation }}</p>
         <div class="location__header">
-          <p class="location__icon u-icon">⛅</p>
+          <img
+            class="location__image"
+            :src="weatherData.iconUrl"
+            alt="wether-icon"
+            width="100"
+            height="100"
+          />
           <div class="location__content">
             <p class="location__temp">{{ weatherTemp }}</p>
             <p class="location__desc">{{ weatherCloud }}</p>
@@ -239,9 +245,6 @@ export default {
   &__header {
     display: flex;
     gap: 16px;
-  }
-  &__icon {
-    font-size: 96px;
   }
   &__content {
     display: flex;

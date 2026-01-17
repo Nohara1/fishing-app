@@ -6,7 +6,7 @@
           <template #list="{ list }">
             <div class="forecast__item">
               <div class="forecast__item-content">
-                <p class="forecast__item-icon">{{ list.icon }}</p>
+                <img :src="list.iconUrl" alt="icon-weather" width="42" height="42" />
                 <p class="forecast__item-time">{{ list.time }}</p>
                 <p class="forecast__item-temp">{{ list.temp }}</p>
               </div>

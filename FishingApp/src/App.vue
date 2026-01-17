@@ -95,8 +95,11 @@ export default {
       return slots.map((item) => ({
         id: item.dt,
         time: item.dt_txt.slice(11, 16),
-        icon: '☀️',
         temp: item.main.temp + '°C',
+        iconCode: item.weather?.[0]?.icon,
+        iconUrl: item.weather?.[0]?.icon
+          ? `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`
+          : null,
         speed: item.wind.speed + 'м/c',
         rain: Math.round((item.pop || 0) * 100) + '%',
       }))
@@ -124,6 +127,7 @@ export default {
             humidity: this.weather.humidity,
             clouds: this.weather.clouds,
             moon: this.moon.age,
+            iconUrl: this.weather.iconUrl,
             visibility: this.weather.visibility,
           },
           weekForecast: {
@@ -155,7 +159,7 @@ export default {
         })
         this.weatherNow = response.data
         this.weatherNow.list = response.data.list
-        console.log(this.todayWeather)
+        console.log(this.weatherNow.list)
       } catch (e) {
         alert('Не работает погода по часам')
       }
@@ -179,8 +183,10 @@ export default {
         this.weather.humidity = response.data.main.humidity
         this.weather.clouds = response.data.clouds.all
         this.weather.visibility = Math.round(response.data.visibility / 1000)
+        this.weather.iconCode = response.data.weather[0].icon
+        this.weather.iconUrl = `https://openweathermap.org/img/wn/${this.weather.iconCode}@2x.png`
 
-        // console.log(this.weather)
+        console.log(this.weather.iconUrl)
       } catch (e) {
         alert('Не работает погода')
       }

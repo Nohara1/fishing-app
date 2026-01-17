@@ -1,6 +1,10 @@
 <template>
   <div class="inner-items" v-if="innerItems">
-    <div :class="innerItemClass" v-for="innerItem in innerItems" :key="innerItem.id">
+    <div
+      :class="[...innerItemClass, innerItem.color && `inner-item--${innerItem.color}`]"
+      v-for="innerItem in innerItems"
+      :key="innerItem.id"
+    >
       <slot name="innerItem" :item="innerItem">
         <div class="inner-item__inner">
           <div class="inner-item__icon">{{ innerItem.icon }}</div>
@@ -59,6 +63,14 @@ export default {
   &--orange {
     background-color: #32424b;
     border: 2px solid #504d4b;
+  }
+  &--green {
+    background-color: #20434b;
+    border: 2px solid #33644c;
+  }
+  &--blue {
+    background-color: #1e3f54;
+    border: 2px solid #2c567a;
   }
   &--secondary {
     border: none;
