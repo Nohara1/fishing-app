@@ -28,7 +28,7 @@
           <template #innerItem="{ item }">
             <div class="recommendation-card">
               <div class="recommendation-card__heading">
-                <p class="recommendation-card__icon">{{ item.icon }}</p>
+                <p class="recommendation-card__icon u-icon">{{ item.icon }}</p>
                 <p class="recommendation-card__title">{{ item.title }}</p>
               </div>
               <p class="recommendation-card__text">{{ item.text }}</p>
@@ -38,7 +38,7 @@
         <BaseInnerItem :innerItems="innerItemsAttention" variant="orange">
           <template #innerItem="{ item }">
             <div class="attention-card">
-              <p class="attention-card__icon">{{ item.icon }}</p>
+              <p class="attention-card__icon u-icon">{{ item.icon }}</p>
               <div class="attention-card__content">
                 <p class="attention-card__title">{{ item.title }}</p>
                 <p class="attention-card__text">{{ item.text }}</p>

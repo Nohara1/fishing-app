@@ -6,7 +6,7 @@
           <template #list="{ list }">
             <div class="forecast-week__item">
               <p class="forecast-week__item-day">{{ list.day }}</p>
-              <p class="forecast-week__item-icon">{{ getWeatherIcon(list.icon) }}</p>
+              <p class="forecast-week__item-icon u-icon">{{ getWeatherIcon(list.icon) }}</p>
               <p class="forecast-week__item-temp">
                 {{ list.temp }}°<span>/{{ list.nightTemp }}°</span>
               </p>

@@ -1,7 +1,12 @@
 <template>
   <div class="fishes">
     <div class="fishes__search">
-      <BaseInput v-model="searchText" />
+      <BaseInput
+        v-model="searchText"
+        type="text"
+        placeholder="Найти рыбу по названию..."
+        aria-label="Поиск рыбы"
+      />
       <BaseButton
         v-for="filter in filters"
         :key="filter.id"

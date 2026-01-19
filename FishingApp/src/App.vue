@@ -52,6 +52,7 @@ export default {
         PageMap: { icon: '🗺️', title: 'Карта водоёмов', subtitle: 'Лучшие места рыбалки' },
         PageFishes: { icon: '🐟', title: 'Рыба', subtitle: 'Справочник видов рыб' },
         PageWeather: { icon: '🌤️', title: 'Погода', subtitle: 'Прогноз и советы' },
+        PageBait: { icon: '🐟', title: 'Прикормка', subtitle: 'Рецепты прикормок' },
       },
       coordsLatitude: null,
       coordsLongitude: null,

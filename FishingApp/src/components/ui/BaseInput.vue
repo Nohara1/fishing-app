@@ -1,11 +1,5 @@
 <template>
-  <input
-    type="text"
-    class="input"
-    placeholder="Найти водоеи или рыбу..."
-    :value="modelValue"
-    @input="updateInput"
-  />
+  <input class="input" v-bind="$attrs" :value="modelValue" @input="updateInput" />
 </template>
 <script>
 export default {
@@ -14,6 +8,9 @@ export default {
     modelValue: {
       type: String,
       default: '',
+    },
+    input: {
+      type: Object,
     },
   },
   methods: {

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import PageMap from '@/pages/PageMap.vue'
 import PageFishes from '@/pages/PageFishes.vue'
 import PageWeather from '@/pages/PageWeather.vue'
+import PageBait from '@/pages/PageBait.vue'
 const routes = [
   {
     path: '/',
@@ -18,10 +19,11 @@ const routes = [
     name: 'PageWeather',
     component: PageWeather,
   },
-  // {
-  //   path: '/about',
-  //   component: AboutPage,
-  // },
+  {
+    path: '/bait',
+    name: 'PageBait',
+    component: PageBait,
+  },
   // {
   //   path: '/posts/:id',
   //   component: PostIdPage,
