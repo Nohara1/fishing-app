@@ -5,9 +5,11 @@
         <form name="bait">
           <div class="form__items">
             <div class="form__item">
-              <BaseSelect :options="fishOptions" />
+              <BaseSelect :options="fishOptions"/>
             </div>
-            <div class="form__item"></div>
+            <div class="form__item">
+              <BaseSelect :options="fishOptions"/>
+            </div>
             <div class="form__item"></div>
             <div class="form__item"></div>
             <div class="form__item"></div>
@@ -31,7 +33,14 @@ export default {
   },
   data() {
     return {
-      fishOptions: ['Карп', 'Окунь', 'Щука', 'Судак', 'Лещ', 'Плотва'],
+      fishOptions: [
+        {name:'Карп', id: '1'},
+        {name:'Карп1', id: '2'},
+        {name:'Карп2', id: '3'},
+        {name:'Карп3', id: '4'},
+        {name:'Карп4', id: '5'},
+        {name:'Карп5', id: '6'}
+      ],
     }
   },
 }

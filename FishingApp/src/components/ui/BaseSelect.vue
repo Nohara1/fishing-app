@@ -1,9 +1,7 @@
 <template>
   <select class="select" v-model="selected">
     <option disabled value="">Выберите один из вариантов</option>
-    <option>A</option>
-    <option>B</option>
-    <option>C</option>
+    <option v-for="option in options" :key="option.id" value="">{{ option.name }}</option>
   </select>
 </template>
 <script>
