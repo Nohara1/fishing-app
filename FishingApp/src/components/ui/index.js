@@ -7,6 +7,8 @@ import BaseHeader from './BaseHeader.vue'
 import BaseTags from './BaseTags.vue'
 import BaseInnerItem from './BaseInnerItem.vue'
 import BaseList from './BaseList.vue'
+import BaseSelect from './BaseSelect.vue'
+import BaseRange from './BaseRange.vue'
 
 export default [
   BaseInput,
@@ -18,4 +20,6 @@ export default [
   BaseTags,
   BaseInnerItem,
   BaseList,
+  BaseSelect,
+  BaseRange,
 ]

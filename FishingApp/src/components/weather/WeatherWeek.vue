@@ -6,7 +6,7 @@
           <template #list="{ list }">
             <div class="forecast-week__item">
               <p class="forecast-week__item-day">{{ list.day }}</p>
-              <p class="forecast-week__item-icon">{{ getWeatherIcon(list.icon) }}</p>
+              <p class="forecast-week__item-icon u-icon">{{ getWeatherIcon(list.icon) }}</p>
               <p class="forecast-week__item-temp">
                 {{ list.temp }}°<span>/{{ list.nightTemp }}°</span>
               </p>
@@ -99,7 +99,7 @@ export default {
         })
         this.weatherWeek = response.data
         this.weatherWeek.list = response.data.daily
-        console.log(this.weatherWeek.list)
+        // console.log(this.weatherWeek.list)
       } catch {
         alert('Проблема c Погодой на Неделю')
       }
@@ -137,7 +137,7 @@ export default {
           icon: this.weatherWeek.daily.weathercode[i],
         })
       }
-      console.log(arr)
+      // console.log(arr)
       return arr
     },
   },

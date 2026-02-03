@@ -4,7 +4,12 @@
     <div class="map-page__content">
       <div class="map-page__sidebar">
         <div class="map-page__search">
-          <BaseInput v-model="searchText" />
+          <BaseInput
+            v-model="searchText"
+            aria-label="Поиск водоема"
+            placeholder="Найти водоём или рыбу..."
+            type="text"
+          />
         </div>
         <div class="map-page__weather">
           <BaseInfoCard class="info--weather">

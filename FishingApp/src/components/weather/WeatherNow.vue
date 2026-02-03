@@ -18,7 +18,7 @@
         </div>
         <div class="location__body">
           <div class="location__metric location__metric--water">
-            <p class="location__metric-value">15°C</p>
+            <p class="location__metric-value">-</p>
             <p class="location__metric-name">Вода</p>
           </div>
           <div class="location__metric">
