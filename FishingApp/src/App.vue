@@ -160,7 +160,7 @@ export default {
         })
         this.weatherNow = response.data
         this.weatherNow.list = response.data.list
-        console.log(this.weatherNow.list)
+        // console.log(this.weatherNow.list)
       } catch (e) {
         alert('Не работает погода по часам')
       }
@@ -187,7 +187,7 @@ export default {
         this.weather.iconCode = response.data.weather[0].icon
         this.weather.iconUrl = `https://openweathermap.org/img/wn/${this.weather.iconCode}@2x.png`
 
-        console.log(this.weather.iconUrl)
+        // console.log(this.weather.iconUrl)
       } catch (e) {
         alert('Не работает погода')
       }

@@ -1,19 +1,25 @@
 <template>
-  <select class="select" v-model="selected">
+  <label :for="label.id">{{ label.name }}</label>
+  <select class="select" :value="modelValue" @change="onChange" :id="label.id">
     <option disabled value="">Выберите один из вариантов</option>
-    <option v-for="option in options" :key="option.id" value="">{{ option.name }}</option>
+    <option v-for="option in options" :key="option.id" :value="option.name">{{ option.name }}</option>
   </select>
 </template>
 <script>
 export default {
   name: 'BaseSelect',
   props: {
+    modelValue: {
+      type: String,
+      default: '',
+    },
+    label: Object,
     options: Array,
   },
-  data() {
-    return {
-      selected: '',
-    }
+  methods: {
+    onChange(event) {
+      this.$emit('update:modelValue', event.target.value)
+    },
   },
 }
 </script>
