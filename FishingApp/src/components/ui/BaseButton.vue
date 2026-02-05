@@ -90,6 +90,13 @@ export default {
       background-color: #3a6f8a80;
     }
   }
+  &--reload {
+    border: 2px solid rgb(45, 74, 89);
+    max-width: 48px;
+    height: 48px;
+    background-color: transparent;
+    display: flex;
+  }
   &--tag {
     border: 2px solid rgb(45, 74, 89);
     background-color: #2d4a5980;

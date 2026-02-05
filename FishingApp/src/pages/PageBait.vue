@@ -8,11 +8,15 @@
               <h2 class="form__heading">Условия рыбалки</h2>
             </div>
             <div class="form__item form__item-half" v-for="field in formFields" :key="field.key">
-              <BaseSelect :options="field.options" :label="field.label" v-model="formData[field.key]"/>
+              <BaseSelect
+                :options="field.options"
+                :label="field.label"
+                v-model="formData[field.key]"
+              />
             </div>
             <!-- <div class="form__item" v-for="range in formRange" :key="range.key">
-                <BaseRange v-model.number="formRange" :label="deepLabel" />
-            </div>-->
+              <BaseRange v-model.number="formRange" :label="deepLabel" />
+            </div> -->
             <div class="form__item">
               <BaseRange v-model.number="rangeDeep" :label="deepLabel" />
             </div>
@@ -28,6 +32,10 @@
             <div class="form__item">
               <BaseSelect :options="methodOptions" v-model="selectedmMethod" :label="methodLabel" />
             </div>
+            <div class="form__item">
+              <BaseButton>Создать рецепт</BaseButton>
+              <BaseButton @click.prevent="formReload">Обнулить</BaseButton>
+            </div>
           </div>
         </form>
       </div>
@@ -38,23 +46,20 @@
 <script>
 import BaseSelect from '@/components/ui/BaseSelect.vue'
 import BaseRange from '@/components/ui/BaseRange.vue'
+import BaseButton from '@/components/ui/BaseButton.vue'
 export default {
   components: {
     BaseSelect,
     BaseRange,
+    BaseButton,
   },
   data() {
     return {
-      formData: {
-        Fish: '',
-        Vodoem: '',
-        Water: '',
-        Techka: '',
-      },
-      formFields:[
+      formData: this.getDefaultFormData(),
+      formFields: [
         {
           key: 'Fish',
-          label: { id: 'fish', name: 'Целевая рыба'},
+          label: { id: 'fish', name: 'Целевая рыба' },
           options: [
             { name: 'Карп', id: '1' },
             { name: 'Щука', id: '2' },
@@ -62,37 +67,37 @@ export default {
             { name: 'Окунь', id: '4' },
             { name: 'Лещ', id: '5' },
             { name: 'Плотва', id: '6' },
-          ]
+          ],
         },
         {
           key: 'Vodoem',
-          label: { id: 'vodoem', name: 'Тип водоема'},
-          options:  [
+          label: { id: 'vodoem', name: 'Тип водоема' },
+          options: [
             { name: 'Река', id: '1' },
             { name: 'Озеро', id: '2' },
             { name: 'Пруд', id: '3' },
             { name: 'Водохранилище', id: '4' },
-          ]
+          ],
         },
         {
           key: 'Water',
-          label: {id: 'water', name: 'Прозрачность воды'},
+          label: { id: 'water', name: 'Прозрачность воды' },
           options: [
             { name: 'Очень прозрачная', id: '1' },
             { name: 'Прозрачная', id: '2' },
             { name: 'Слегка мутная', id: '3' },
             { name: 'Мутная', id: '4' },
-          ]
+          ],
         },
         {
           key: 'Techka',
-          label: {id: 'techka', name: 'Течение'},
+          label: { id: 'techka', name: 'Течение' },
           options: [
             { name: 'Отсутствует', id: '1' },
             { name: 'Слабое', id: '2' },
             { name: 'Среднее', id: '3' },
             { name: 'Сильное', id: '4' },
-          ]
+          ],
         },
       ],
       // formRange:{
@@ -147,6 +152,21 @@ export default {
         { name: 'Универсальная', id: '3' },
       ],
     }
+  },
+  methods: {
+    getDefaultFormData() {
+      return {
+        Fish: '',
+        Vodoem: '',
+        Water: '',
+        Techka: '',
+        rangeDeep: 0.5,
+        rangeTempWater: 0,
+      }
+    },
+    formReload() {
+      this.formData = this.getDefaultFormData()
+    },
   },
 }
 </script>
