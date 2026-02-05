@@ -18,10 +18,10 @@
               <BaseRange v-model.number="formRange" :label="deepLabel" />
             </div> -->
             <div class="form__item">
-              <BaseRange v-model.number="rangeDeep" :label="deepLabel" />
+              <BaseRange v-model.number="formData.rangeDeep" :label="deepLabel" />
             </div>
             <div class="form__item">
-              <BaseRange v-model.number="rangeTempWater" :label="tempwaterLabel" />
+              <BaseRange v-model.number="formData.rangeTempWater" :label="tempwaterLabel" />
             </div>
             <div class="form__item form__item-half">
               <BaseSelect :options="seasonOptions" v-model="selectedSeason" :label="seasonLabel" />
@@ -104,8 +104,8 @@ export default {
       //   rangeDeep: 0.5,
       //   rangeTempWater: 0,
       // },
-      rangeDeep: 0.5,
-      rangeTempWater: 0,
+      // rangeDeep: this.getDefaultFormData(),
+      // rangeTempWater: this.getDefaultFormData(),
       deepLabel: {
         id: 'deep',
         name: 'Глубина ловли',
