@@ -7,18 +7,12 @@
             <div class="form__item">
               <h2 class="form__heading">Условия рыбалки</h2>
             </div>
-            <div class="form__item form__item-half">
-              <BaseSelect :options="fishOptions" v-model="selectedFish" :label="fishLabel" />
+            <div class="form__item form__item-half" v-for="field in formFields" :key="field.key">
+              <BaseSelect :options="field.options" :label="field.label" v-model="formData[field.key]"/>
             </div>
-            <div class="form__item form__item-half">
-              <BaseSelect :options="vodoemOptions" v-model="selectedVodoem" :label="vodoemLabel" />
-            </div>
-            <div class="form__item form__item-half">
-              <BaseSelect :options="waterOptions" v-model="selectedWater" :label="waterLabel" />
-            </div>
-            <div class="form__item form__item-half">
-              <BaseSelect :options="techkaOptions" v-model="selectedTechka" :label="techkaLabel" />
-            </div>
+            <!-- <div class="form__item" v-for="range in formRange" :key="range.key">
+                <BaseRange v-model.number="formRange" :label="deepLabel" />
+            </div>-->
             <div class="form__item">
               <BaseRange v-model.number="rangeDeep" :label="deepLabel" />
             </div>
@@ -34,9 +28,6 @@
             <div class="form__item">
               <BaseSelect :options="methodOptions" v-model="selectedmMethod" :label="methodLabel" />
             </div>
-            {{ selectedFish }},{{ selectedVodoem }},{{ selectedWater }},{{ selectedTechka }},{{
-              rangeDeep
-            }},{{ rangeTempWater }},{{ selectedSeason }},{{ selectedTime }},{{ selectedmMethod }}
           </div>
         </form>
       </div>
@@ -54,13 +45,60 @@ export default {
   },
   data() {
     return {
-      selectedFish: '',
-      selectedVodoem: '',
-      selectedWater: '',
-      selectedTechka: '',
-      selectedSeason: '',
-      selectedTime: '',
-      selectedmMethod: '',
+      formData: {
+        Fish: '',
+        Vodoem: '',
+        Water: '',
+        Techka: '',
+      },
+      formFields:[
+        {
+          key: 'Fish',
+          label: { id: 'fish', name: 'Целевая рыба'},
+          options: [
+            { name: 'Карп', id: '1' },
+            { name: 'Щука', id: '2' },
+            { name: 'Судак', id: '3' },
+            { name: 'Окунь', id: '4' },
+            { name: 'Лещ', id: '5' },
+            { name: 'Плотва', id: '6' },
+          ]
+        },
+        {
+          key: 'Vodoem',
+          label: { id: 'vodoem', name: 'Тип водоема'},
+          options:  [
+            { name: 'Река', id: '1' },
+            { name: 'Озеро', id: '2' },
+            { name: 'Пруд', id: '3' },
+            { name: 'Водохранилище', id: '4' },
+          ]
+        },
+        {
+          key: 'Water',
+          label: {id: 'water', name: 'Прозрачность воды'},
+          options: [
+            { name: 'Очень прозрачная', id: '1' },
+            { name: 'Прозрачная', id: '2' },
+            { name: 'Слегка мутная', id: '3' },
+            { name: 'Мутная', id: '4' },
+          ]
+        },
+        {
+          key: 'Techka',
+          label: {id: 'techka', name: 'Течение'},
+          options: [
+            { name: 'Отсутствует', id: '1' },
+            { name: 'Слабое', id: '2' },
+            { name: 'Среднее', id: '3' },
+            { name: 'Сильное', id: '4' },
+          ]
+        },
+      ],
+      // formRange:{
+      //   rangeDeep: 0.5,
+      //   rangeTempWater: 0,
+      // },
       rangeDeep: 0.5,
       rangeTempWater: 0,
       deepLabel: {
@@ -79,22 +117,6 @@ export default {
         step: '1',
         si: '°C',
       },
-      fishLabel: {
-        id: 'fish',
-        name: 'Целевая рыба',
-      },
-      vodoemLabel: {
-        id: 'vodoem',
-        name: 'Тип водоема',
-      },
-      waterLabel: {
-        id: 'water',
-        name: 'Прозрачность воды',
-      },
-      techkaLabel: {
-        id: 'techka',
-        name: 'Течение',
-      },
       timeLabel: {
         id: 'time',
         name: 'Время суток',
@@ -107,32 +129,6 @@ export default {
         id: 'method',
         name: 'Метод ловли',
       },
-      fishOptions: [
-        { name: 'Карп', id: '1' },
-        { name: 'Щука', id: '2' },
-        { name: 'Судак', id: '3' },
-        { name: 'Окунь', id: '4' },
-        { name: 'Лещ', id: '5' },
-        { name: 'Плотва', id: '6' },
-      ],
-      vodoemOptions: [
-        { name: 'Река', id: '1' },
-        { name: 'Озеро', id: '2' },
-        { name: 'Пруд', id: '3' },
-        { name: 'Водохранилище', id: '4' },
-      ],
-      waterOptions: [
-        { name: 'Очень прозрачная', id: '1' },
-        { name: 'Прозрачная', id: '2' },
-        { name: 'Слегка мутная', id: '3' },
-        { name: 'Мутная', id: '4' },
-      ],
-      techkaOptions: [
-        { name: 'Отсутствует', id: '1' },
-        { name: 'Слабое', id: '2' },
-        { name: 'Среднее', id: '3' },
-        { name: 'Сильное', id: '4' },
-      ],
       seasonOptions: [
         { name: 'Лето', id: '1' },
         { name: 'Осень', id: '2' },
