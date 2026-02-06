@@ -1,7 +1,9 @@
 <template>
   <button :class="buttonClasses">
-    <span v-if="icon" class="button__icon">{{ icon }}</span>
-    <span class="button__text">
+    <span v-if="icon || $slots.icon" class="button__icon">
+      <slot name="icon">{{ icon }}</slot>
+    </span>
+    <span class="button__text" v-if="$slots.default">
       <slot></slot>
     </span>
   </button>
@@ -57,6 +59,10 @@ export default {
   &:disabled {
     opacity: 0.6;
   }
+  &__icon{
+    display: flex;
+    align-items: center;
+  }
   &--content {
     background-color: transparent;
     width: 100%;
@@ -81,6 +87,12 @@ export default {
     &:hover {
       background-color: #3a6f8a80;
     }
+  }
+  &--svg{
+    width: 48px;
+    height: 48px;
+    background-color: transparent;
+    border: 2px solid rgb(45, 74, 89);
   }
   &--card {
     border: 2px solid rgb(45, 74, 89);

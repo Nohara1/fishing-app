@@ -14,9 +14,6 @@
                 v-model="formData[field.key]"
               />
             </div>
-            <!-- <div class="form__item" v-for="range in formRange" :key="range.key">
-              <BaseRange v-model.number="formRange" :label="deepLabel" />
-            </div> -->
             <div class="form__item">
               <BaseRange v-model.number="formData.rangeDeep" :label="deepLabel" />
             </div>
@@ -24,17 +21,23 @@
               <BaseRange v-model.number="formData.rangeTempWater" :label="tempwaterLabel" />
             </div>
             <div class="form__item form__item-half">
-              <BaseSelect :options="seasonOptions" v-model="selectedSeason" :label="seasonLabel" />
+              <BaseSelect :options="seasonOptions" v-model="formData.Season" :label="seasonLabel" />
             </div>
             <div class="form__item form__item-half">
-              <BaseSelect :options="timeOptions" v-model="selectedTime" :label="timeLabel" />
+              <BaseSelect :options="timeOptions" v-model="formData.Time" :label="timeLabel" />
             </div>
             <div class="form__item">
-              <BaseSelect :options="methodOptions" v-model="selectedmMethod" :label="methodLabel" />
+              <BaseSelect :options="methodOptions" v-model="formData.Method" :label="methodLabel" />
             </div>
             <div class="form__item">
-              <BaseButton>Создать рецепт</BaseButton>
-              <BaseButton @click.prevent="formReload">Обнулить</BaseButton>
+              <div class="form__buttons-wrapper">
+                <BaseButton>Создать рецепт</BaseButton>
+              <BaseButton @click.prevent="formReload" variant="svg">
+                <template #icon>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw h-4 w-4" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                  </template>
+              </BaseButton>
+              </div>
             </div>
           </div>
         </form>
@@ -100,12 +103,6 @@ export default {
           ],
         },
       ],
-      // formRange:{
-      //   rangeDeep: 0.5,
-      //   rangeTempWater: 0,
-      // },
-      // rangeDeep: this.getDefaultFormData(),
-      // rangeTempWater: this.getDefaultFormData(),
       deepLabel: {
         id: 'deep',
         name: 'Глубина ловли',
@@ -162,6 +159,9 @@ export default {
         Techka: '',
         rangeDeep: 0.5,
         rangeTempWater: 0,
+        Season: '',
+        Time: '',
+        Method: '',
       }
     },
     formReload() {
@@ -186,6 +186,15 @@ export default {
   padding: 24px;
   border-radius: 18px;
   border: 1px solid #4b5563;
+  &__buttons{
+    &-wrapper{
+      display: flex;
+      gap: 12px;
+      & > *:first-child{
+        flex: 1;
+      }
+    }
+  }
   &__heading {
     font-size: 24px;
   }
