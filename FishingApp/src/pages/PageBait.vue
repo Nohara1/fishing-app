@@ -32,17 +32,48 @@
             <div class="form__item">
               <div class="form__buttons-wrapper">
                 <BaseButton>Создать рецепт</BaseButton>
-              <BaseButton @click.prevent="formReload" variant="svg">
-                <template #icon>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw h-4 w-4" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
-                  </template>
-              </BaseButton>
+                <BaseButton @click.prevent="formReload" variant="svg">
+                  <template #icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw h-4 w-4" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                    </template>
+                </BaseButton>
               </div>
             </div>
           </div>
         </form>
       </div>
-      <div class="bait__item">123</div>
+      <div class="bait__item">
+          <div class="bait__result">
+            <div class="bait__result-inner">
+              <div class="bait__result-title"></div>
+                <div class="bait__result-body">
+                  <div class="bait__result-structure">
+                    <ul>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </div>
+                  <div class="bait__result-cooked">
+                    <ul>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </div>
+                  <div class="bait__result-options">
+                    123
+                  </div>
+                  <div class="bait__result-buttons">
+                    <BaseButton>Создать рецепт</BaseButton>
+                  </div>
+                </div>
+                <div class="bait__result-empty">123</div>
+              </div>
+          </div>
+      </div>
     </div>
   </div>
 </template>

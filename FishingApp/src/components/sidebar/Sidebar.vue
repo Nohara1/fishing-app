@@ -45,6 +45,9 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  position: sticky;
+  left: 0;
+  top: 0;
   &__content {
     display: flex;
     flex-direction: column;
