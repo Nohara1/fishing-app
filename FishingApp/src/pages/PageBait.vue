@@ -31,8 +31,10 @@
             </div>
             <div class="form__item">
               <div class="form__buttons-wrapper">
-                <BaseButton @click.prevent="createRecipe()">Создать рецепт</BaseButton>
-                <BaseButton @click.prevent="formReload" variant="svg">
+                <BaseButton type="button" @click.prevent="createRecipe()"
+                  >Создать рецепт</BaseButton
+                >
+                <BaseButton type="button" @click.prevent="formReload" variant="svg">
                   <template #icon>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -58,18 +60,18 @@
         </form>
       </div>
       <div class="bait__item">
-        <div class="bait__result" v-if="activeRecipeId.length !== 0">
+        <div class="bait__result" v-if="resultBait">
           <div class="bait__result-inner">
             <div class="bait__result-title">Рецепт прикормки</div>
             <div class="bait__result-body">
               <div class="bait__structure">
                 <div class="bait__structure-list">
                   <p class="bait__structure-title">Состав:</p>
-                  <BaseList :lists="listStructure" variant="unstyled">
+                  <BaseList :lists="resultBait.ingredients" variant="unstyled">
                     <template #list="{ list }">
                       <div class="bait__structure-item">
                         <p class="bait__structure-name">{{ list.name }}</p>
-                        <span class="bait__structure-procent">{{ list.procent }}</span>
+                        <span class="bait__structure-amount">{{ list.amount }}</span>
                       </div>
                     </template>
                   </BaseList>
@@ -78,7 +80,7 @@
               <div class="bait__cooked">
                 <div class="bait__cooked-list">
                   <p class="bait__cooked-title">Приготовление:</p>
-                  <BaseList :lists="listCooked" variant="unstyled" as="ol">
+                  <BaseList :lists="resultBait.cooked" variant="unstyled" as="ol">
                     <template #list="{ list }">
                       <div class="bait__cooked-item">
                         <p class="bait__cooked-step">{{ list.step }}</p>
@@ -92,19 +94,21 @@
                   <div class="bait__options-item">
                     <div class="bait__options-inner">
                       <div class="bait__options-key">Консистенция</div>
-                      <div class="bait__options-value">Средняя</div>
+                      <div class="bait__options-value">
+                        {{ resultBait.options.consistency }}
+                      </div>
                     </div>
                   </div>
                   <div class="bait__options-item">
                     <div class="bait__options-inner">
                       <div class="bait__options-key">Связка</div>
-                      <div class="bait__options-value">Хорошая</div>
+                      <div class="bait__options-value">{{ resultBait.options.bind }}</div>
                     </div>
                   </div>
                   <div class="bait__options-item">
                     <div class="bait__options-inner">
                       <div class="bait__options-key">Аромат</div>
-                      <div class="bait__options-value">Сладкий</div>
+                      <div class="bait__options-value">{{ resultBait.options.aroma }}</div>
                     </div>
                   </div>
                 </div>
@@ -229,7 +233,6 @@ export default {
             aroma: 'Сладкий (ваниль/карамель)',
           },
         },
-
         {
           id: 3,
           name: 'Для карпа (пластичная, хорошо лепится)',
@@ -263,14 +266,7 @@ export default {
           },
         },
       ],
-      activeRecipeId: '',
-      listStructure: [
-        { name: 'Кукурузная крупа', procent: '40%' },
-        { name: 'Панировочные сухари', procent: '30%' },
-        { name: 'Жмых подсолнечный', procent: '15%' },
-        { name: 'Манная крупа', procent: '10%' },
-        { name: 'Ванильный ароматизатор', procent: '5мл' },
-      ],
+      activeRecipeId: null,
       formData: this.getDefaultFormData(),
       formFields: [
         {
@@ -382,6 +378,7 @@ export default {
     },
     formReload() {
       this.formData = this.getDefaultFormData() //обнуляет форму
+      this.activeRecipeId = null // обнуляем результат
     },
     getScore(bait) {
       const keys = ['Fish', 'Vodoem', 'Water', 'Techka', 'Season', 'Time', 'Method']
@@ -393,7 +390,7 @@ export default {
         if (bait.criteria[key]?.includes(value)) score += 1
       })
       return score
-    }, //получаю оценку при выборе инпутов , т.е. сколько значений выбронных инпутов сопадет со знаениями в критериях прикормки
+    }, //получаю оценку при выборе инпутов , т.е. сколько значений выбранных инпутов сопадет со значениями в критериях прикормки
   },
   computed: {
     bestBaitId() {
@@ -402,15 +399,17 @@ export default {
 
       this.baits.forEach((bait) => {
         const score = this.getScore(bait)
-        if (score > bestScore) {
+        if (score >= bestScore) {
           bestScore = score
           bestId = bait.id
         }
       })
-      console.log(bestScore)
-      console.log(bestId)
+      if (bestScore === 0) return null
       return bestId
     }, // выбираем лучшую прикормку что подошла по критериям
+    resultBait() {
+      return this.baits.find((bait) => bait.id === this.activeRecipeId) || null
+    }, // функция возвращает первый элемент(в нашем случчаи обьект с прикормкой) с нужным id лиюо если ниче не нащел то null
   },
 }
 </script>
@@ -471,7 +470,7 @@ export default {
       font-size: 14px;
       line-height: 1.4;
     }
-    &-procent {
+    &-amount {
       border: 1px solid #4b5563;
       padding: 2px 8px;
       border-radius: 12px;
@@ -505,6 +504,7 @@ export default {
       font-weight: 500;
       font-size: 16px;
       line-height: 1.5;
+      text-align: center;
     }
   }
   &__empty {
