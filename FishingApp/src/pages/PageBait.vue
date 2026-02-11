@@ -31,7 +31,7 @@
             </div>
             <div class="form__item">
               <div class="form__buttons-wrapper">
-                <BaseButton>Создать рецепт</BaseButton>
+                <BaseButton @click.prevent="createRecipe()">Создать рецепт</BaseButton>
                 <BaseButton @click.prevent="formReload" variant="svg">
                   <template #icon>
                     <svg
@@ -58,7 +58,7 @@
         </form>
       </div>
       <div class="bait__item">
-        <div class="bait__result">
+        <div class="bait__result" v-if="activeRecipeId.length !== 0">
           <div class="bait__result-inner">
             <div class="bait__result-title">Рецепт прикормки</div>
             <div class="bait__result-body">
@@ -113,7 +113,33 @@
                 <BaseButton variant="card">Сохранить пресет</BaseButton>
               </div>
             </div>
-            <!-- <div class="bait__result-empty">123</div> -->
+          </div>
+        </div>
+        <div class="bait__empty" v-else>
+          <div class="bait__empty-inner">
+            <div class="bait__empty-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-utensils h-12 w-12 mx-auto mb-4 text-muted-foreground"
+                aria-hidden="true"
+              >
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                <path d="M7 2v20"></path>
+                <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+              </svg>
+            </div>
+            <div class="bait__empty-title">Создайте рецепт прикормки</div>
+            <div class="bait__empty-text">
+              Заполните условия ловли слева и нажмите "Создать рецепт"
+            </div>
           </div>
         </div>
       </div>
@@ -134,13 +160,110 @@ export default {
   },
   data() {
     return {
-      listCooked: [
-        { step: 'Замочить кукурузную крупу на 2 часа' },
-        { step: 'Перемешать сухие компоненты' },
-        { step: 'Добавить ароматизатор' },
-        { step: 'Увлажнить водой из водоёма' },
-        { step: 'Слепить шары размером с теннисный мяч' },
+      baits: [
+        {
+          id: 1,
+          name: 'Универсальная сладкая (стоячая вода)',
+          criteria: {
+            Fish: ['1', '5', '6'],
+            Vodoem: ['2', '3'],
+            Water: ['1', '2', '3', '4'],
+            Techka: ['1'],
+            Season: ['1', '2'],
+            Time: ['1', '2', '3'],
+            Method: ['1', '2'],
+          },
+          ingredients: [
+            { id: 1, name: 'Панировочные сухари', amount: '40%' },
+            { id: 2, name: 'Кукурузная крупа (сухая)', amount: '25%' },
+            { id: 3, name: 'Жмых подсолнечный', amount: '15%' },
+            { id: 4, name: 'Манная крупа', amount: '10%' },
+            { id: 5, name: 'Ваниль (ванилин/арома)', amount: 'по вкусу' },
+          ],
+          cooked: [
+            { id: 1, step: 'Смешай все сухие компоненты до однородности.' },
+            { id: 2, step: 'Понемногу добавляй воду, постоянно перемешивая.' },
+            { id: 3, step: 'Дай смеси постоять 10–15 минут, чтобы компоненты набухли.' },
+            { id: 4, step: 'Доведи увлажнение до лепки шаров, но чтобы они легко распадались.' },
+            { id: 5, step: 'Добавь ванильную ароматику в самом конце и ещё раз перемешай.' },
+          ],
+          options: {
+            consistency: 'Средняя',
+            bind: 'Средняя',
+            aroma: 'Сладкий (ваниль)',
+          },
+        },
+
+        {
+          id: 2,
+          name: 'Для леща (тёплая вода, сладкие запахи)',
+          criteria: {
+            Fish: ['5'],
+            Vodoem: ['1', '2', '4'],
+            Water: ['2', '3', '4'],
+            Techka: ['1', '2'],
+            Season: ['1', '2'],
+            Time: ['1', '2', '3'],
+            Method: ['2'],
+          },
+          ingredients: [
+            { id: 1, name: 'Панировочные сухари', amount: '35%' },
+            { id: 2, name: 'Отруби пшеничные', amount: '20%' },
+            { id: 3, name: 'Жмых подсолнечный', amount: '15%' },
+            { id: 4, name: 'Лён молотый/льняная мука', amount: '10%' },
+            { id: 5, name: 'Сладкая ароматика (ваниль/карамель)', amount: 'по вкусу' },
+          ],
+          cooked: [
+            { id: 1, step: 'Смешай сухари, отруби и жмых.' },
+            { id: 2, step: 'Добавь молотый лён и перемешай.' },
+            { id: 3, step: 'Увлажняй в 2–3 подхода, чтобы не перелить воду.' },
+            { id: 4, step: 'Выдержи 15 минут, затем снова перемешай.' },
+            {
+              id: 5,
+              step: 'Добавь сладкую ароматику, проверь механику: комок лепится и “работает” в воде.',
+            },
+          ],
+          options: {
+            consistency: 'Рыхлая-средняя',
+            bind: 'Слабая-средняя',
+            aroma: 'Сладкий (ваниль/карамель)',
+          },
+        },
+
+        {
+          id: 3,
+          name: 'Для карпа (пластичная, хорошо лепится)',
+          criteria: {
+            Fish: ['1'],
+            Vodoem: ['2', '3', '4'],
+            Water: ['1', '2', '3'],
+            Techka: ['1', '2'],
+            Season: ['1'],
+            Time: ['2', '3'],
+            Method: ['1', '2'],
+          },
+          ingredients: [
+            { id: 1, name: 'Панировочные сухари', amount: '30%' },
+            { id: 2, name: 'Пшено (распаренное/варёное)', amount: '25%' },
+            { id: 3, name: 'Кукуруза дроблёная/крупа', amount: '20%' },
+            { id: 4, name: 'Манка', amount: '15%' },
+            { id: 5, name: 'Ароматика (ваниль/анис/карамель)', amount: 'по вкусу' },
+          ],
+          cooked: [
+            { id: 1, step: 'Подготовь пшено: распарь/отвари до мягкости и остуди.' },
+            { id: 2, step: 'Смешай сухари, дроблёную кукурузу и манку.' },
+            { id: 3, step: 'Добавь пшено и перемешай до пластичной массы.' },
+            { id: 4, step: 'При необходимости подлей немного воды, чтобы смесь хорошо лепилась.' },
+            { id: 5, step: 'Добавь ароматику, сформируй шары нужного размера.' },
+          ],
+          options: {
+            consistency: 'Пластичная',
+            bind: 'Хорошая',
+            aroma: 'Сладкий (ваниль/анис/карамель)',
+          },
+        },
       ],
+      activeRecipeId: '',
       listStructure: [
         { name: 'Кукурузная крупа', procent: '40%' },
         { name: 'Панировочные сухари', procent: '30%' },
@@ -254,9 +377,40 @@ export default {
         Method: '',
       }
     },
-    formReload() {
-      this.formData = this.getDefaultFormData()
+    createRecipe() {
+      this.activeRecipeId = this.bestBaitId //присваиваю пустой активрецептид луший ид который есть
     },
+    formReload() {
+      this.formData = this.getDefaultFormData() //обнуляет форму
+    },
+    getScore(bait) {
+      const keys = ['Fish', 'Vodoem', 'Water', 'Techka', 'Season', 'Time', 'Method']
+      let score = 0
+
+      keys.forEach((key) => {
+        const value = this.formData[key]
+        if (!value) return
+        if (bait.criteria[key]?.includes(value)) score += 1
+      })
+      return score
+    }, //получаю оценку при выборе инпутов , т.е. сколько значений выбронных инпутов сопадет со знаениями в критериях прикормки
+  },
+  computed: {
+    bestBaitId() {
+      let bestId = null
+      let bestScore = -1
+
+      this.baits.forEach((bait) => {
+        const score = this.getScore(bait)
+        if (score > bestScore) {
+          bestScore = score
+          bestId = bait.id
+        }
+      })
+      console.log(bestScore)
+      console.log(bestId)
+      return bestId
+    }, // выбираем лучшую прикормку что подошла по критериям
   },
 }
 </script>
@@ -351,6 +505,30 @@ export default {
       font-weight: 500;
       font-size: 16px;
       line-height: 1.5;
+    }
+  }
+  &__empty {
+    background-color: #1b3a4b;
+    border-radius: 18px;
+    border: 1px solid #4b5563;
+    &-inner {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    &-icon svg {
+      width: 48px;
+      height: 48px;
+    }
+    &-title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    &-text {
+      color: #b3b3b3;
+      font-size: 14px;
     }
   }
 }
