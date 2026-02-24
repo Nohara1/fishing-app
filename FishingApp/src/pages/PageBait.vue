@@ -14,9 +14,9 @@
                 v-model="formData[field.key]"
               />
             </div>
-            <div class="form__item">
+            <!-- <div class="form__item">
               <BaseRange v-model.number="formData.rangeDeep" :label="deepLabel" />
-            </div>
+            </div> -->
             <div class="form__item">
               <BaseRange v-model.number="formData.rangeTempWater" :label="tempwaterLabel" />
             </div>
@@ -31,9 +31,7 @@
             </div>
             <div class="form__item">
               <div class="form__buttons-wrapper">
-                <BaseButton type="button" @click.prevent="createRecipe()"
-                  >Создать рецепт</BaseButton
-                >
+                <BaseButton type="button" @click.prevent="createRecipe">Создать рецепт</BaseButton>
                 <BaseButton type="button" @click.prevent="formReload" variant="svg">
                   <template #icon>
                     <svg
@@ -63,6 +61,7 @@
         <div class="bait__result" v-if="resultBait">
           <div class="bait__result-inner">
             <div class="bait__result-title">Рецепт прикормки</div>
+            <div class="bait__result-name">{{ resultBait.name }}</div>
             <div class="bait__result-body">
               <div class="bait__structure">
                 <div class="bait__structure-list">
@@ -176,6 +175,7 @@ export default {
             Season: ['1', '2'],
             Time: ['1', '2', '3'],
             Method: ['1', '2'],
+            rangeTempWater: { min: 0, max: 10 },
           },
           ingredients: [
             { id: 1, name: 'Панировочные сухари', amount: '40%' },
@@ -209,6 +209,7 @@ export default {
             Season: ['1', '2'],
             Time: ['1', '2', '3'],
             Method: ['2'],
+            rangeTempWater: { min: 0, max: 30 },
           },
           ingredients: [
             { id: 1, name: 'Панировочные сухари', amount: '35%' },
@@ -244,6 +245,7 @@ export default {
             Season: ['1'],
             Time: ['2', '3'],
             Method: ['1', '2'],
+            rangeTempWater: { min: 20, max: 30 },
           },
           ingredients: [
             { id: 1, name: 'Панировочные сухари', amount: '30%' },
@@ -312,14 +314,14 @@ export default {
           ],
         },
       ],
-      deepLabel: {
-        id: 'deep',
-        name: 'Глубина ловли',
-        min: '0.5',
-        max: '20',
-        step: '0.5',
-        si: 'м',
-      },
+      // deepLabel: {
+      //   id: 'deep',
+      //   name: 'Глубина ловли',
+      //   min: '0.5',
+      //   max: '20',
+      //   step: '0.5',
+      //   si: 'м',
+      // },
       tempwaterLabel: {
         id: 'temp',
         name: 'Температура воды',
@@ -389,6 +391,11 @@ export default {
         if (!value) return
         if (bait.criteria[key]?.includes(value)) score += 1
       })
+
+      const temp = this.formData.rangeTempWater
+      if (temp >= bait.criteria.rangeTempWater?.min && temp <= bait.criteria.rangeTempWater?.max) {
+        score += 1
+      }
       return score
     }, //получаю оценку при выборе инпутов , т.е. сколько значений выбранных инпутов сопадет со значениями в критериях прикормки
   },
