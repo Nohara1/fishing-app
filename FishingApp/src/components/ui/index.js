@@ -9,6 +9,7 @@ import BaseInnerItem from './BaseInnerItem.vue'
 import BaseList from './BaseList.vue'
 import BaseSelect from './BaseSelect.vue'
 import BaseRange from './BaseRange.vue'
+import BaseSvg from './BaseSvg.vue'
 
 export default [
   BaseInput,
@@ -22,4 +23,5 @@ export default [
   BaseList,
   BaseSelect,
   BaseRange,
+  BaseSvg
 ]

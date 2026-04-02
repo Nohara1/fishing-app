@@ -28,7 +28,7 @@ export default {
         { subtitle: 'Используйте карту для поиска лучших мест рыбалки рядом с вами' },
       ],
       buttons: [
-        { logo: '🗺️', title: 'Карта', subtitle: 'Лучшие места рыбалки', link: '' },
+        { name: '🗺️', title: 'Карта', subtitle: 'Лучшие места рыбалки', link: '' },
         { logo: '🐟', title: 'Рыба', subtitle: 'Справочник видов рыб', link: 'fishes' },
         { logo: '🌤️', title: 'Погода', subtitle: 'Прогноз и советы', link: 'weather' },
         { logo: '🪝', title: 'Прикормка', subtitle: 'Рецепт приманок', link: 'bait' },

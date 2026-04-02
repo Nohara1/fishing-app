@@ -6,6 +6,7 @@ import components from '@/components/ui'
 import router from '@/router/router.js'
 import directives from '@/directives/index'
 import store from './components/store'
+import 'virtual:svg-icons-register'
 
 /** style **/
 import '@/scss/utility.scss'

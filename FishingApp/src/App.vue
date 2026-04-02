@@ -9,14 +9,6 @@
         </router-view>
       </div>
     </div>
-    <!-- <BaseCard v-for="card in cards" :key="card.title" :card="card" /> -->
-
-    <!-- <PageMap
-      :temp="weather.temp"
-      :speed="weather.speed"
-      :pressure="weather.pressure"
-      :phase="moon.phase"
-    /> -->
   </div>
 </template>
 <script>
@@ -56,29 +48,6 @@ export default {
       },
       coordsLatitude: null,
       coordsLongitude: null,
-      // cards: [
-      //   {
-      //     logo: '/image/icon/shcuka.png',
-      //     image: '/image/fish-card-image/fish-one.webp',
-      //     title: 'Щука',
-      //     time: 'Утром и вечером',
-      //     temperature: '8-18°C',
-      //   },
-      //   {
-      //     logo: '/image/icon/shcuka.png',
-      //     image: '/image/fish-card-image/fish-two.webp',
-      //     title: 'Судак',
-      //     time: 'На рассвете и в сумерках',
-      //     temperature: '12-22°C',
-      //   },
-      //   {
-      //     logo: '/image/icon/shcuka.png',
-      //     image: '/image/fish-card-image/fish-three.webp',
-      //     title: 'Карп',
-      //     time: 'Утром и вечером',
-      //     temperature: '18-25°C',
-      //   },
-      // ],
     }
   },
   computed: {

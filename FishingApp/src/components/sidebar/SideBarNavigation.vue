@@ -3,12 +3,6 @@
     <nav class="sidebar__navigation-list">
       <SideBarNavigationItem v-for="button in buttons" :key="button.title" :button="button" />
     </nav>
-    <!-- <BaseButton variant="filter">Подробнее</BaseButton>
-    <BaseButton variant="tag">Вся рыба</BaseButton>
-    <BaseButton variant="tag" active="true" icon="🌱">Весна</BaseButton>
-    <BaseButton variant="tag" icon="☀️">Лето</BaseButton>
-    <BaseButton variant="tag" icon="🍂">Осень</BaseButton> -->
-    <!-- <BaseInput v-model="searchText" /> -->
   </div>
 </template>
 <script>
