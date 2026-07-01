@@ -2,8 +2,8 @@
   <RouterLink :to="`/${button.link}`">
     <button type="button" class="sidebar__navigation-item">
       <span class="sidebar__navigation-logo">
-        <BaseSvg name="{{ button.name }}" width="{{ button.width }}" height="{{ button.height }}"/>
-        {{ button.name }}</span>
+        <BaseSvg :name="button.name" :width="button.width" :height="button.height"/>
+      </span>
       <div class="sidebar__navigation-text">
         <h2 class="sidebar__navigation-title">{{ button.title }}</h2>
         <p class="sidebar__navigation-subtitle">{{ button.subtitle }}</p>

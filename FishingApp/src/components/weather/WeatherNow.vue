@@ -68,6 +68,7 @@
 <script>
 import BaseInnerItem from '../ui/BaseInnerItem.vue'
 import BaseList from '../ui/BaseList.vue'
+import { useWeatherStore } from '@/stores/weather'
 
 export default {
   name: 'WeatheNow',
@@ -164,7 +165,8 @@ export default {
       return this.getScore(this.clouds, this.weatherData.clouds, this.weights.clouds)
     },
     getScoreMoon() {
-      return Math.round(this.getScore(this.moon, this.weatherData.moon, this.weights.moon))
+      const weatherStore = useWeatherStore()
+      return Math.round(this.getScore(this.moon, weatherStore.moon.age, this.weights.moon))
     },
     totalScore() {
       return Math.round(
@@ -196,7 +198,8 @@ export default {
       return this.weatherData.cloud !== undefined ? `${this.weatherData.cloud}` : '–'
     },
     moonPhase() {
-      return this.weatherData.phase !== undefined ? `${this.weatherData.phase}` : '–'
+      const phase = useWeatherStore().moon.phase
+      return phase !== null && phase !== undefined ? `${phase}` : '–'
     },
     weatherPressure() {
       return this.weatherData.pressure !== undefined ? `${this.weatherData.pressure}` : '–'
