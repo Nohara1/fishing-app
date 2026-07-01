@@ -2,7 +2,7 @@
   <article class="card">
     <div class="card__badges">
       <div class="card__logo">
-        <img :src="card.logo" alt="щука" width="42" height="42" />
+        <BaseSvg name="pike" width="40" height="40"/>
       </div>
     </div>
     <div class="card__image">
@@ -27,10 +27,12 @@
 
 <script>
 import BaseButton from './BaseButton.vue'
+import BaseSvg from './BaseSvg.vue'
 
 export default {
   components: {
     BaseButton,
+    BaseSvg,
   },
   name: 'BaseCard',
   props: {

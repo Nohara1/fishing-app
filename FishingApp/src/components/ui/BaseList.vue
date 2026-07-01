@@ -1,11 +1,11 @@
 <template>
-  <div class="list">
+  <div :class="listClasses">
     <div class="list__inner">
       <h2 v-if="heading" class="list__heading u-heading">
         <p v-if="icon" class="list__icon u-icon">{{ icon }}</p>
         {{ heading }}
       </h2>
-      <ul class="list__items">
+      <component :is="as" class="list__items">
         <li v-for="list in lists" :key="list.id" class="list__item">
           <slot name="list" :list="list">
             <div class="list__left">
@@ -16,16 +16,8 @@
               <span class="list__result">{{ list.result }}</span>
             </div>
           </slot>
-          <!-- <div class="list__item-inner">
-            <p class="list__item-icon">{{ list.icon }}</p>
-            <div class="list__item-content">
-              <p class="list__item-title">{{ list.title }}</p>
-              <p class="list__item-text" v-if="list.text">{{ list.text }}</p>
-            </div>
-            <div class="list__item-result">{{ list.result }}</div>
-          </div> -->
         </li>
-      </ul>
+      </component>
     </div>
   </div>
 </template>
@@ -36,10 +28,31 @@ export default {
     heading: String,
     icon: String,
     lists: Array,
+    variant: {
+      type: String,
+    },
+    as: {
+      type: String,
+      default: 'ul',
+    },
+  },
+  computed: {
+    listClasses() {
+      return ['list', this.variant && `list--${this.variant}`]
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
+ol {
+  margin: 0;
+  padding-left: 1.8rem;
+  %list_item::marker {
+    color: #3a6ea5;
+    font-weight: 400;
+    font-size: 14px;
+  }
+}
 .list {
   &__inner {
     border: 2px solid #4e5866;
@@ -49,6 +62,10 @@ export default {
     gap: 24px;
     display: flex;
     flex-direction: column;
+    %list_unstyled & {
+      border: none;
+      padding: 0;
+    }
   }
   &__heading {
     font-size: 20px;
@@ -58,10 +75,18 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    %list_unstyled & {
+      gap: 8px;
+    }
   }
   &__item {
     border-radius: 18px;
     background-color: #273e4b;
+    @extend %list_item !optional;
+    %list_unstyled & {
+      border-radius: 0;
+      background-color: transparent;
+    }
     &-inner {
       padding: 16px;
       display: flex;
@@ -83,6 +108,9 @@ export default {
     &-text {
       font-size: 14px;
     }
+  }
+  &--unstyled {
+    @extend %list_unstyled !optional;
   }
 }
 </style>

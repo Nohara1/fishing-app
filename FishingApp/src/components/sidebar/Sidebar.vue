@@ -28,12 +28,12 @@ export default {
         { subtitle: 'Используйте карту для поиска лучших мест рыбалки рядом с вами' },
       ],
       buttons: [
-        { logo: '🗺️', title: 'Карта', subtitle: 'Лучшие места рыбалки', link: '' },
-        { logo: '🐟', title: 'Рыба', subtitle: 'Справочник видов рыб', link: 'fishes' },
-        { logo: '🌤️', title: 'Погода', subtitle: 'Прогноз и советы', link: 'weather' },
-        { logo: '🪝', title: 'Прикормка', subtitle: 'Рецепт приманок', link: 'bait' },
-        { logo: '📖', title: 'Мой дневник', subtitle: 'Записи об уловах', link: 'diary' },
-        { logo: 'ℹ️', title: 'О приложении', subtitle: 'Инструкция и справка', link: 'about' },
+        { name: 'pike',width: 50, height: 50, title: 'Карта', subtitle: 'Лучшие места рыбалки', link: '' },
+        { name: 'pike',width: 50, height: 50, title: 'Рыба', subtitle: 'Справочник видов рыб', link: 'fishes' },
+        { name: 'pike',width: 50, height: 50, title: 'Погода', subtitle: 'Прогноз и советы', link: 'weather' },
+        { name: 'pike',width: 50, height: 50, title: 'Прикормка', subtitle: 'Рецепт приманок', link: 'bait' },
+        { name: 'pike',width: 50, height: 50, title: 'Мой дневник', subtitle: 'Записи об уловах', link: 'diary' },
+        { name: 'pike',width: 50, height: 50, title: 'О приложении', subtitle: 'Инструкция и справка', link: 'about' },
       ],
     }
   },
@@ -45,6 +45,9 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  position: sticky;
+  left: 0;
+  top: 0;
   &__content {
     display: flex;
     flex-direction: column;

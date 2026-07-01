@@ -74,7 +74,10 @@
         </div>
       </div>
       <div class="map-page__map">
-        <yandex-map :settings="mapSettings" width="100%" height="600px" />
+        <yandex-map :settings="mapSettings" width="100%" height="600px">
+          <yandex-map-default-scheme-layer />
+          <yandex-map-default-features-layer />
+        </yandex-map>
       </div>
     </div>
   </div>
@@ -83,6 +86,8 @@
 // import BaseHeader from '@/components/ui/BaseHeader.vue'
 import BaseInfoCard from '@/components/ui/BaseInfoCard.vue'
 import BaseInput from '@/components/ui/BaseInput.vue'
+import { useWeatherStore } from '@/stores/weather'
+import {YandexMap,YandexMapDefaultSchemeLayer,YandexMapDefaultFeaturesLayer} from 'vue-yandex-maps'
 
 export default {
   name: 'PageMap',
@@ -90,12 +95,9 @@ export default {
     // BaseHeader,
     BaseInput,
     BaseInfoCard,
-  },
-  props: {
-    temp: Number,
-    pressure: Number,
-    speed: Number,
-    phase: String,
+    YandexMap,
+    YandexMapDefaultSchemeLayer,
+    YandexMapDefaultFeaturesLayer
   },
   data() {
     return {
@@ -107,7 +109,11 @@ export default {
       // },
       searchText: '',
       mapSettings: {
-        location: { lat: 53.9, lng: 27.57, zoom: 7 },
+        location: {
+          center: [27.57, 53.9],
+          zoom: 7,
+         },
+         theme: 'dark'
       },
       reservoirs: {
         icon: '📍',
@@ -176,12 +182,13 @@ export default {
   },
   computed: {
     weatherContents() {
+      const weatherStore = useWeatherStore()
       return [
-        { key: 'Воздух', value: this.temp !== undefined ? `${this.temp}°C` : '–' },
+        { key: 'Воздух', value: weatherStore.weather.temp !== null ? `${weatherStore.weather.temp}°C` : '–' },
         { key: 'Вода', value: '15°C' },
-        { key: 'Ветер', value: this.speed !== undefined ? `${this.speed} м/с` : '–' },
-        { key: 'Давление', value: this.pressure !== undefined ? this.pressure : '–' },
-        { key: 'Луна', value: this.phase !== undefined ? this.phase : '–' },
+        { key: 'Ветер', value: weatherStore.weather.speed !== null ? `${weatherStore.weather.speed} м/с` : '–' },
+        { key: 'Давление', value: weatherStore.weather.pressure !== null ? weatherStore.weather.pressure : '–' },
+        { key: 'Луна', value: weatherStore.moon.phase !== null ? weatherStore.moon.phase : '–' },
       ]
     },
     filteredReservoirs() {
