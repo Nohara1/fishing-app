@@ -25,23 +25,16 @@
   </article>
 </template>
 
-<script>
+<script setup>
 import BaseButton from './BaseButton.vue'
 import BaseSvg from './BaseSvg.vue'
 
-export default {
-  components: {
-    BaseButton,
-    BaseSvg,
+const props = defineProps({
+  card: {
+    type: Object,
+    required: true,
   },
-  name: 'BaseCard',
-  props: {
-    card: {
-      type: Object,
-      required: true,
-    },
-  },
-}
+})
 </script>
 
 <style scoped lang="scss">
@@ -52,9 +45,6 @@ export default {
   border: 2px solid rgb(75, 85, 99);
   position: relative;
   background-color: #1b3a4b;
-  // flex: 1 1 calc(33.333% - 20px);
-  // max-width: calc(33.333% - 20px);
-  // width: 100%;
   height: 100%;
   transition: transform 0.3s;
   &:hover {

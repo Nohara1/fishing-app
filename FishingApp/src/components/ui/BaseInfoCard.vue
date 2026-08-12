@@ -6,10 +6,7 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'BaseInfoCard',
-}
+<script setup>
 </script>
 <style lang="scss" scoped>
 .info {

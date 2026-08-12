@@ -21,10 +21,9 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'BaseList',
-  props: {
+<script setup>
+  import {computed} from 'vue';
+  const props = defineProps({
     heading: String,
     icon: String,
     lists: Array,
@@ -35,13 +34,10 @@ export default {
       type: String,
       default: 'ul',
     },
-  },
-  computed: {
-    listClasses() {
-      return ['list', this.variant && `list--${this.variant}`]
-    },
-  },
-}
+  })
+  const listClasses = computed(() =>{
+    return ['list', props.variant && `list--${props.variant}`]
+  })
 </script>
 <style lang="scss" scoped>
 ol {
