@@ -36,30 +36,6 @@ export default {
     currentHeader() {
       return this.headers[this.$route.name]
     },
-    todayWeather() {
-      const weatherStore = useWeatherStore()
-      if (!weatherStore.weatherNow) return []
-
-      const now = new Date()
-      const year = now.getFullYear()
-      const month = String(now.getMonth() + 1).padStart(2, '0')
-      const day = String(now.getDate()).padStart(2, '0')
-      const today = `${year}-${month}-${day}`
-
-      const slots = weatherStore.weatherNow.list.filter((item) => item.dt_txt.startsWith(today))
-
-      return slots.map((item) => ({
-        id: item.dt,
-        time: item.dt_txt.slice(11, 16),
-        temp: item.main.temp + '°C',
-        iconCode: item.weather?.[0]?.icon,
-        iconUrl: item.weather?.[0]?.icon
-          ? `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`
-          : null,
-        speed: item.wind.speed + 'м/c',
-        rain: Math.round((item.pop || 0) * 100) + '%',
-      }))
-    },
   },
   methods: {
     routeProps(name) {
@@ -81,7 +57,7 @@ export default {
             lat: weatherStore.coordsLatitude,
             long: weatherStore.coordsLongitude,
           },
-          todayWeather: this.todayWeather,
+          todayWeather: weatherStore.todayWeather,
         }
       }
     },

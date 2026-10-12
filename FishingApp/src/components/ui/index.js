@@ -1,4 +1,3 @@
-import mySelect from './mySelect.vue'
 import BaseButton from './BaseButton.vue'
 import BaseInput from './BaseInput.vue'
 import BaseCard from './BaseCard.vue'
@@ -13,7 +12,6 @@ import BaseSvg from './BaseSvg.vue'
 
 export default [
   BaseInput,
-  mySelect,
   BaseButton,
   BaseCard,
   BaseInfoCard,

@@ -22,6 +22,30 @@ export const useWeatherStore = defineStore('weather', {
     },
     location: null,
   }),
+  getters: {
+    todayWeather: (state) => {
+      if (!state.weatherNow) return []
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = String(now.getMonth() + 1).padStart(2, '0')
+      const day = String(now.getDate()).padStart(2, '0')
+      const today = `${year}-${month}-${day}`
+
+      const slots = state.weatherNow.list.filter((item) => item.dt_txt.startsWith(today))
+
+      return slots.map((item) => ({
+        id: item.dt,
+        time: item.dt_txt.slice(11, 16),
+        temp: item.main.temp + '°C',
+        iconCode: item.weather?.[0]?.icon,
+        iconUrl: item.weather?.[0]?.icon
+          ? `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`
+          : null,
+        speed: item.wind.speed + 'м/c',
+        rain: Math.round((item.pop || 0) * 100) + '%',
+      }))
+    }
+  },
   actions: {
     setCoords(lat, lon) {
       this.coordsLatitude = lat
