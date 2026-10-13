@@ -21,5 +21,5 @@ export default [
   BaseList,
   BaseSelect,
   BaseRange,
-  BaseSvg
+  BaseSvg,
 ]

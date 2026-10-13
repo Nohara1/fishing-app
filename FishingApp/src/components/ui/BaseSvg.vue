@@ -1,7 +1,7 @@
 <template>
-    <svg aria-hidden="true" class="icon" :width="width" :height="height">
-      <use :href="'#icon-' + name"></use>
-    </svg>
+  <svg aria-hidden="true" class="icon" :width="width" :height="height">
+    <use :href="'#icon-' + name"></use>
+  </svg>
 </template>
 <script>
 export default {
@@ -11,9 +11,7 @@ export default {
       type: String,
       required: true,
     },
-  }
+  },
 }
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

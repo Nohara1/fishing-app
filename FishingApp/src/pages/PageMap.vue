@@ -87,7 +87,11 @@
 import BaseInfoCard from '@/components/ui/BaseInfoCard.vue'
 import BaseInput from '@/components/ui/BaseInput.vue'
 import { useWeatherStore } from '@/stores/weather'
-import {YandexMap,YandexMapDefaultSchemeLayer,YandexMapDefaultFeaturesLayer} from 'vue-yandex-maps'
+import {
+  YandexMap,
+  YandexMapDefaultSchemeLayer,
+  YandexMapDefaultFeaturesLayer,
+} from 'vue-yandex-maps'
 
 export default {
   name: 'PageMap',
@@ -97,7 +101,7 @@ export default {
     BaseInfoCard,
     YandexMap,
     YandexMapDefaultSchemeLayer,
-    YandexMapDefaultFeaturesLayer
+    YandexMapDefaultFeaturesLayer,
   },
   data() {
     return {
@@ -112,8 +116,8 @@ export default {
         location: {
           center: [27.57, 53.9],
           zoom: 7,
-         },
-         theme: 'dark'
+        },
+        theme: 'dark',
       },
       reservoirs: {
         icon: '📍',
@@ -184,10 +188,19 @@ export default {
     weatherContents() {
       const weatherStore = useWeatherStore()
       return [
-        { key: 'Воздух', value: weatherStore.weather.temp !== null ? `${weatherStore.weather.temp}°C` : '–' },
+        {
+          key: 'Воздух',
+          value: weatherStore.weather.temp !== null ? `${weatherStore.weather.temp}°C` : '–',
+        },
         { key: 'Вода', value: '15°C' },
-        { key: 'Ветер', value: weatherStore.weather.speed !== null ? `${weatherStore.weather.speed} м/с` : '–' },
-        { key: 'Давление', value: weatherStore.weather.pressure !== null ? weatherStore.weather.pressure : '–' },
+        {
+          key: 'Ветер',
+          value: weatherStore.weather.speed !== null ? `${weatherStore.weather.speed} м/с` : '–',
+        },
+        {
+          key: 'Давление',
+          value: weatherStore.pressureCalculation !== null ? weatherStore.pressureCalculation : '–',
+        },
         { key: 'Луна', value: weatherStore.moon.phase !== null ? weatherStore.moon.phase : '–' },
       ]
     },

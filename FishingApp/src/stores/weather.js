@@ -12,17 +12,28 @@ export const useWeatherStore = defineStore('weather', {
     weather: {
       temp: null,
       speed: null,
-      pressure: null,
       cloud: null,
       humidity: null,
       clouds: null,
       visibility: null,
       iconCode: null,
-      iconUrl: null,
+      pressure: null,
     },
     location: null,
   }),
   getters: {
+    iconUrl: (state) => {
+      if (!state.weather.iconCode) return null
+      return `https://openweathermap.org/img/wn/${state.weather.iconCode}@2x.png`
+    },
+    visibilityCalculation: (state) => {
+      if (state.weather.visibility === null) return null
+      return Math.round(state.weather.visibility / 1000)
+    },
+    pressureCalculation: (state) => {
+      if (!state.weather.pressure) return null
+      return Math.round(state.weather.pressure * 0.75)
+    },
     todayWeather: (state) => {
       if (!state.weatherNow) return []
       const now = new Date()
@@ -44,7 +55,7 @@ export const useWeatherStore = defineStore('weather', {
         speed: item.wind.speed + 'м/c',
         rain: Math.round((item.pop || 0) * 100) + '%',
       }))
-    }
+    },
   },
   actions: {
     setCoords(lat, lon) {
@@ -91,15 +102,14 @@ export const useWeatherStore = defineStore('weather', {
           },
         })
         this.weather.temp = response.data.main.temp
-        this.weather.pressure = Math.round(response.data.main.pressure * 0.75)
         this.weather.speed = response.data.wind.speed
         this.location = response.data.name
         this.weather.cloud = response.data.weather[0].description
         this.weather.humidity = response.data.main.humidity
+        this.weather.pressure = response.data.main.pressure
         this.weather.clouds = response.data.clouds.all
-        this.weather.visibility = Math.round(response.data.visibility / 1000)
+        this.weather.visibility = response.data.visibility
         this.weather.iconCode = response.data.weather[0].icon
-        this.weather.iconUrl = `https://openweathermap.org/img/wn/${this.weather.iconCode}@2x.png`
       } catch (e) {
         alert('Не работает погода')
       }

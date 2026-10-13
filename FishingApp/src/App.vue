@@ -4,9 +4,7 @@
     <div class="page">
       <BaseHeader v-if="currentHeader" :header="currentHeader" />
       <div class="container">
-        <router-view v-slot="{ Component, route }">
-          <component :is="Component" v-bind="routeProps(route.name)" />
-        </router-view>
+        <router-view/>
       </div>
     </div>
   </div>
@@ -38,29 +36,6 @@ export default {
     },
   },
   methods: {
-    routeProps(name) {
-      const weatherStore = useWeatherStore()
-      if (name === 'PageWeather') {
-        return {
-          weatherData: {
-            location: weatherStore.location,
-            temp: weatherStore.weather.temp,
-            speed: weatherStore.weather.speed,
-            pressure: weatherStore.weather.pressure,
-            cloud: weatherStore.weather.cloud,
-            humidity: weatherStore.weather.humidity,
-            clouds: weatherStore.weather.clouds,
-            iconUrl: weatherStore.weather.iconUrl,
-            visibility: weatherStore.weather.visibility,
-          },
-          weekForecast: {
-            lat: weatherStore.coordsLatitude,
-            long: weatherStore.coordsLongitude,
-          },
-          todayWeather: weatherStore.todayWeather,
-        }
-      }
-    },
     coordsReceiving() {
       navigator.geolocation.getCurrentPosition((position) => {
         const weatherStore = useWeatherStore()
@@ -68,7 +43,6 @@ export default {
         weatherStore.fetchWeatherNow()
         weatherStore.fetchMoon()
         weatherStore.fetchWeather()
-
       })
     },
   },

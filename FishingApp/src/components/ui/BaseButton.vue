@@ -59,7 +59,7 @@ export default {
   &:disabled {
     opacity: 0.6;
   }
-  &__icon{
+  &__icon {
     display: flex;
     align-items: center;
   }
@@ -88,7 +88,7 @@ export default {
       background-color: #3a6f8a80;
     }
   }
-  &--svg{
+  &--svg {
     width: 48px;
     height: 48px;
     background-color: transparent;

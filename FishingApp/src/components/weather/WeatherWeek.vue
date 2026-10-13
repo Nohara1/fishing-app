@@ -54,6 +54,16 @@ export default {
       required: true,
     },
   },
+  watch: {
+    weekForecast:{
+      handler(newValue){
+        if(newValue.lat && newValue.lon !== null  ){
+          this.fetchWeatherWeek()
+        }
+      },
+      immediate: true
+    },
+  },
   data() {
     return {
       listHeading: 'Прогноз на неделю',
