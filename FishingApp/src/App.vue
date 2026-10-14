@@ -36,18 +36,9 @@ export default {
     },
   },
   methods: {
-    coordsReceiving() {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const weatherStore = useWeatherStore()
-        weatherStore.setCoords(position.coords.latitude, position.coords.longitude)
-        weatherStore.fetchWeatherNow()
-        weatherStore.fetchMoon()
-        weatherStore.fetchWeather()
-      })
-    },
   },
   mounted() {
-    this.coordsReceiving()
+    useWeatherStore().init()
   },
 }
 </script>
@@ -109,4 +100,3 @@ a {
   height: 100%;
 }
 </style>
-<style></style>

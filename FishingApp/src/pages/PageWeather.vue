@@ -53,6 +53,10 @@ export default {
         clouds: store.weather.clouds,
         iconUrl: store.iconUrl,
         visibility: store.visibilityCalculation,
+        moon:{
+          age: store.moon.age,
+          phase: store.moon.phase,
+        }
       }
     },
     todayWeather() {

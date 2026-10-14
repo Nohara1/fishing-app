@@ -57,7 +57,7 @@ export default {
   watch: {
     weekForecast:{
       handler(newValue){
-        if(newValue.lat && newValue.lon !== null  ){
+        if(newValue.lat !== null && newValue.long !== null  ){
           this.fetchWeatherWeek()
         }
       },
@@ -150,9 +150,6 @@ export default {
       // console.log(arr)
       return arr
     },
-  },
-  mounted() {
-    this.fetchWeatherWeek()
   },
 }
 </script>

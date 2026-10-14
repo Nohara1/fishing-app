@@ -68,7 +68,6 @@
 <script>
 import BaseInnerItem from '../ui/BaseInnerItem.vue'
 import BaseList from '../ui/BaseList.vue'
-import { useWeatherStore } from '@/stores/weather'
 
 export default {
   name: 'WeatheNow',
@@ -84,51 +83,6 @@ export default {
   },
   data() {
     return {
-      weights: {
-        temperature: 0.3,
-        pressure: 0.25,
-        speed: 0.2,
-        clouds: 0.15,
-        humidity: 0.05,
-        moon: 0.05,
-      },
-      quantityVariables: 16.7,
-      speed: [
-        { name: 'Отличные', value: 2, mark: 100 },
-        { name: 'Хорошо', value: 4, mark: 75 },
-        { name: 'Средне', value: 7, mark: 50 },
-        { name: 'Плохо', value: 10, mark: 25 },
-      ],
-      pressure: [
-        { name: 'Отличные', value: 740, mark: 100 },
-        { name: 'Хорошо', value: 750, mark: 75 },
-        { name: 'Средне', value: 770, mark: 50 },
-        { name: 'Плохо', value: Infinity, mark: 25 },
-      ],
-      temperature: [
-        { name: 'Плохо', value: 5, mark: 25 },
-        { name: 'Средне', value: 12, mark: 50 },
-        { name: 'Хорошо', value: 18, mark: 75 },
-        { name: 'Отличные', value: 25, mark: 100 },
-        { name: 'Плохо', value: Infinity, mark: 20 },
-      ],
-      humidity: [
-        { name: 'Отличные', value: 70, mark: 100 },
-        { name: 'Хорошо', value: 85, mark: 75 },
-        { name: 'Средне', value: 95, mark: 50 },
-        { name: 'Плохо', value: Infinity, mark: 25 },
-      ],
-      clouds: [
-        { name: 'Отличные', value: 50, mark: 100 },
-        { name: 'Хорошо', value: 80, mark: 75 },
-        { name: 'Средне', value: 100, mark: 50 },
-        { name: 'Плохо', value: Infinity, mark: 25 },
-      ],
-      moon: [
-        { name: 'Отличные', value: 0.25, mark: 100 },
-        { name: 'Хорошо', value: 0.75, mark: 66 },
-        { name: 'Средне', value: Infinity, mark: 33 },
-      ],
       listHeading: 'Анализ Условий',
       innerItemsConditions: [
         { icon: '🌅', title: '05:30 - 08:00', text: 'Высокая активность', id: 0 },
@@ -165,8 +119,7 @@ export default {
       return this.getScore(this.clouds, this.weatherData.clouds, this.weights.clouds)
     },
     getScoreMoon() {
-      const weatherStore = useWeatherStore()
-      return Math.round(this.getScore(this.moon, weatherStore.moon.age, this.weights.moon))
+      return Math.round(this.getScore(this.moon, this.weatherData.moon.age, this.weights.moon))
     },
     totalScore() {
       return Math.round(
@@ -186,30 +139,30 @@ export default {
       return 'Очень плохие'
     },
     weatherTemp() {
-      return this.weatherData.temp !== undefined ? `${this.weatherData.temp}°C` : '–'
+      return this.weatherData.temp !== null ? `${this.weatherData.temp}°C` : '–'
     },
     weatherLocation() {
-      return this.weatherData.location !== undefined ? `${this.weatherData.location}` : '–'
+      return this.weatherData.location !== null ? `${this.weatherData.location}` : '–'
     },
     weatherSpeed() {
-      return this.weatherData.speed !== undefined ? `${this.weatherData.speed} м/с` : '–'
+      return this.weatherData.speed !== null ? `${this.weatherData.speed} м/с` : '–'
     },
     weatherCloud() {
-      return this.weatherData.cloud !== undefined ? `${this.weatherData.cloud}` : '–'
+      return this.weatherData.cloud !== null ? `${this.weatherData.cloud}` : '–'
     },
     moonPhase() {
-      const phase = useWeatherStore().moon.phase
+      const phase = this.weatherData.moon.phase
       return phase !== null && phase !== undefined ? `${phase}` : '–'
     },
     weatherPressure() {
-      return this.weatherData.pressure !== undefined ? `${this.weatherData.pressure}` : '–'
+      return this.weatherData.pressure !== null ? `${this.weatherData.pressure}` : '–'
     },
 
     weatherHumidity() {
-      return this.weatherData.humidity !== undefined ? `${this.weatherData.humidity}%` : '–'
+      return this.weatherData.humidity !== null ? `${this.weatherData.humidity}%` : '–'
     },
     weatherVisibility() {
-      return this.weatherData.visibility !== undefined ? `${this.weatherData.visibility} км` : '–'
+      return this.weatherData.visibility !== null ? `${this.weatherData.visibility} км` : '–'
     },
     innerItemsIndicators() {
       return [
