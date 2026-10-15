@@ -4,7 +4,7 @@
     <div class="page">
       <BaseHeader v-if="currentHeader" :header="currentHeader" />
       <div class="container">
-        <router-view/>
+        <router-view />
       </div>
     </div>
   </div>
@@ -34,8 +34,6 @@ export default {
     currentHeader() {
       return this.headers[this.$route.name]
     },
-  },
-  methods: {
   },
   mounted() {
     useWeatherStore().init()

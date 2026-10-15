@@ -55,13 +55,13 @@ export default {
     },
   },
   watch: {
-    weekForecast:{
-      handler(newValue){
-        if(newValue.lat !== null && newValue.long !== null  ){
+    weekForecast: {
+      handler(newValue) {
+        if (newValue.lat !== null && newValue.long !== null) {
           this.fetchWeatherWeek()
         }
       },
-      immediate: true
+      immediate: true,
     },
   },
   data() {

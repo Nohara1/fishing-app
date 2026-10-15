@@ -33,12 +33,12 @@
         <div class="conditions__result">
           <p class="conditions__result-icon u-icon">🎣</p>
           <div class="conditions__result-value">
-            <span>{{ totalScore }}</span
+            <span>{{ bite.total }}</span
             >/100
           </div>
         </div>
         <div class="conditions__header">
-          <p class="conditions__title">Условия для рыбалки:{{ conditions }}</p>
+          <p class="conditions__title">Условия для рыбалки:{{ bite.condition }}</p>
           <p class="conditions__subtitle">Идеальные условия для ловли щуки и окуня!</p>
         </div>
         <BaseInnerItem :innerItems="innerItemsConditions" variant="secondary"> </BaseInnerItem>
@@ -68,6 +68,7 @@
 <script>
 import BaseInnerItem from '../ui/BaseInnerItem.vue'
 import BaseList from '../ui/BaseList.vue'
+import {calcBiteScore} from '@/utils/biteScore.js'
 
 export default {
   name: 'WeatheNow',
@@ -90,53 +91,9 @@ export default {
       ],
     }
   },
-  methods: {
-    getScore(conditions, value, weights) {
-      if (value == null) return 0
-      for (let i = 0; i < conditions.length; i++) {
-        if (value <= conditions[i].value) {
-          return conditions[i].mark * weights
-        }
-      }
-      return 0
-    },
-  },
-  watch: {},
   computed: {
-    getScoreSpeed() {
-      return this.getScore(this.speed, this.weatherData.speed, this.weights.speed)
-    },
-    getScorePressure() {
-      return this.getScore(this.pressure, this.weatherData.pressure, this.weights.pressure)
-    },
-    getScoreTemperature() {
-      return this.getScore(this.temperature, this.weatherData.temp, this.weights.temperature)
-    },
-    getScoreHumidity() {
-      return this.getScore(this.humidity, this.weatherData.humidity, this.weights.humidity)
-    },
-    getScoreClouds() {
-      return this.getScore(this.clouds, this.weatherData.clouds, this.weights.clouds)
-    },
-    getScoreMoon() {
-      return Math.round(this.getScore(this.moon, this.weatherData.moon.age, this.weights.moon))
-    },
-    totalScore() {
-      return Math.round(
-        this.getScoreSpeed +
-          this.getScorePressure +
-          this.getScoreTemperature +
-          this.getScoreHumidity +
-          this.getScoreClouds +
-          this.getScoreMoon,
-      )
-    },
-    conditions() {
-      if (this.totalScore >= 85) return 'Отличные'
-      if (this.totalScore >= 70) return 'Хорошие'
-      if (this.totalScore >= 50) return 'Средние'
-      if (this.totalScore >= 30) return 'Плохие'
-      return 'Очень плохие'
+    bite(){
+      return calcBiteScore(this.weatherData)
     },
     weatherTemp() {
       return this.weatherData.temp !== null ? `${this.weatherData.temp}°C` : '–'
@@ -174,12 +131,12 @@ export default {
     },
     listContent() {
       return [
-        { icon: '📊', title: 'Давление', result: `${this.getScorePressure}%`, id: 0 },
-        { icon: '💨', title: 'Ветер', result: `${this.getScoreSpeed}%`, id: 1 },
-        { icon: '🌖', title: 'Луна', result: `${this.getScoreMoon}%`, id: 2 },
-        { icon: '🌡️', title: 'Температура', result: `${this.getScoreTemperature}%`, id: 3 },
-        { icon: '⛅', title: 'Облачность', result: `${this.getScoreClouds}%`, id: 3 },
-        { icon: '🌡️', title: 'Влажность', result: `${this.getScoreHumidity}%`, id: 3 },
+        { icon: '📊', title: 'Давление', result: `${this.bite.parts.pressure}%`, id: 0 },
+        { icon: '💨', title: 'Ветер', result: `${this.bite.parts.speed}%`, id: 1 },
+        { icon: '🌖', title: 'Луна', result: `${this.bite.parts.moon}%`, id: 2 },
+        { icon: '🌡️', title: 'Температура', result: `${this.bite.parts.temperature}%`, id: 3 },
+        { icon: '⛅', title: 'Облачность', result: `${this.bite.parts.clouds}%`, id: 4 },
+        { icon: '🌡️', title: 'Влажность', result: `${this.bite.parts.humidity}%`, id: 5 },
       ]
     },
   },

@@ -35,8 +35,8 @@ export default {
     },
   },
   computed: {
-    weekForecast(){
-      return{
+    weekForecast() {
+      return {
         lat: useWeatherStore().coordsLatitude,
         long: useWeatherStore().coordsLongitude,
       }
@@ -53,10 +53,10 @@ export default {
         clouds: store.weather.clouds,
         iconUrl: store.iconUrl,
         visibility: store.visibilityCalculation,
-        moon:{
+        moon: {
           age: store.moon.age,
           phase: store.moon.phase,
-        }
+        },
       }
     },
     todayWeather() {

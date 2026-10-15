@@ -58,7 +58,7 @@ export const useWeatherStore = defineStore('weather', {
     },
   },
   actions: {
-    init(){
+    init() {
       navigator.geolocation.getCurrentPosition((position) => {
         this.setCoords(position.coords.latitude, position.coords.longitude)
         this.fetchWeatherNow()
