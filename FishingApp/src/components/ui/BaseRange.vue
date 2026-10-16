@@ -21,8 +21,8 @@ export default {
   name: 'BaseRange',
   props: {
     modelValue: {
-      type: String,
-      default: '',
+      type: Number,
+      default: 0,
     },
     label: {
       type: Object,
@@ -32,7 +32,7 @@ export default {
   emits: ['update:modelValue'],
   methods: {
     onInput(event) {
-      this.$emit('update:modelValue', event.target.value)
+      this.$emit('update:modelValue', event.target.valueAsNumber)
     },
   },
 }

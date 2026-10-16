@@ -37,16 +37,8 @@
   </div>
 </template>
 <script>
-import BaseButton from '@/components/ui/BaseButton.vue'
-import BaseCard from '@/components/ui/BaseCard.vue'
-import BaseInput from '@/components/ui/BaseInput.vue'
 
 export default {
-  components: {
-    BaseCard,
-    BaseInput,
-    BaseButton,
-  },
   data() {
     return {
       idActive: 0,

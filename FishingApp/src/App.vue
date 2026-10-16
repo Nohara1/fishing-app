@@ -11,13 +11,11 @@
 </template>
 <script>
 import Sidebar from './components/sidebar/Sidebar.vue'
-import BaseHeader from './components/ui/BaseHeader.vue'
 import { useWeatherStore } from './stores/weather'
 
 export default {
   components: {
     Sidebar,
-    BaseHeader,
     // PageMap,
   },
   data() {

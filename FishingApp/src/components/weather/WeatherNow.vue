@@ -66,16 +66,10 @@
   </div>
 </template>
 <script>
-import BaseInnerItem from '../ui/BaseInnerItem.vue'
-import BaseList from '../ui/BaseList.vue'
 import { calcBiteScore } from '@/utils/biteScore.js'
 
 export default {
   name: 'WeatherNow',
-  components: {
-    BaseInnerItem,
-    BaseList,
-  },
   props: {
     weatherData: {
       type: Object,

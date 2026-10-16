@@ -38,15 +38,9 @@
   </div>
 </template>
 <script>
-import BaseInnerItem from '../ui/BaseInnerItem.vue'
-import BaseList from '../ui/BaseList.vue'
 
 export default {
   name: 'WeatherWeek',
-  components: {
-    BaseList,
-    BaseInnerItem,
-  },
   props: {
     weekForecast: {
       type: Array,

@@ -11,22 +11,14 @@
   </div>
 </template>
 <script>
-import BaseButton from './BaseButton.vue'
 
 export default {
-  components: {
-    BaseButton,
-  },
   name: 'BaseTags',
+  emits: ['change-tag'],
   props: {
     idActive: Number,
     tags: Array,
   },
-  // data() {
-  //   return {
-  //     idActive: 0,
-  //   }
-  // },
   methods: {
     onClick(id) {
       this.$emit('change-tag', id)

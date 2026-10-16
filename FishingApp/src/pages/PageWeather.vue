@@ -7,14 +7,12 @@
   </div>
 </template>
 <script>
-import BaseTags from '@/components/ui/BaseTags.vue'
 import WeatherNow from '@/components/weather/WeatherNow.vue'
 import WeatherToday from '@/components/weather/WeatherToday.vue'
 import WeatherWeek from '@/components/weather/WeatherWeek.vue'
 import { useWeatherStore } from '@/stores/weather'
 export default {
   components: {
-    BaseTags,
     WeatherNow,
     WeatherToday,
     WeatherWeek,

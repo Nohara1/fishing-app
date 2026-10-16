@@ -51,15 +51,9 @@
   </div>
 </template>
 <script>
-import BaseInnerItem from '../ui/BaseInnerItem.vue'
-import BaseList from '../ui/BaseList.vue'
 
 export default {
   name: 'WeatherToday',
-  components: {
-    BaseList,
-    BaseInnerItem,
-  },
   props: {
     todayWeather: {
       type: Array,

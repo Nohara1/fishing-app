@@ -19,11 +19,7 @@
   </button> -->
 </template>
 <script>
-import BaseSvg from '@/components/ui/BaseSvg.vue'
 export default {
-  components: {
-    BaseSvg,
-  },
   name: 'SideBarNavigationItem',
   props: {
     button: {

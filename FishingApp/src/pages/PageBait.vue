@@ -15,10 +15,10 @@
               />
             </div>
             <!-- <div class="form__item">
-              <BaseRange v-model.number="formData.rangeDeep" :label="deepLabel" />
+              <BaseRange v-model="formData.rangeDeep" :label="deepLabel" />
             </div> -->
             <div class="form__item">
-              <BaseRange v-model.number="formData.rangeTempWater" :label="tempwaterLabel" />
+              <BaseRange v-model="formData.rangeTempWater" :label="tempwaterLabel" />
             </div>
             <div class="form__item form__item-half">
               <BaseSelect :options="seasonOptions" v-model="formData.Season" :label="seasonLabel" />
@@ -150,17 +150,8 @@
   </div>
 </template>
 <script>
-import BaseSelect from '@/components/ui/BaseSelect.vue'
-import BaseRange from '@/components/ui/BaseRange.vue'
-import BaseButton from '@/components/ui/BaseButton.vue'
-import BaseList from '@/components/ui/BaseList.vue'
+
 export default {
-  components: {
-    BaseSelect,
-    BaseRange,
-    BaseButton,
-    BaseList,
-  },
   data() {
     return {
       baits: [

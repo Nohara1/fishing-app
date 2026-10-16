@@ -4,13 +4,11 @@
 <script>
 export default {
   name: 'BaseInput',
+  emits: ['update:modelValue'],
   props: {
     modelValue: {
       type: String,
       default: '',
-    },
-    input: {
-      type: Object,
     },
   },
   methods: {

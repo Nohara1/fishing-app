@@ -83,9 +83,6 @@
   </div>
 </template>
 <script>
-// import BaseHeader from '@/components/ui/BaseHeader.vue'
-import BaseInfoCard from '@/components/ui/BaseInfoCard.vue'
-import BaseInput from '@/components/ui/BaseInput.vue'
 import { useWeatherStore } from '@/stores/weather'
 import {
   YandexMap,
@@ -96,9 +93,6 @@ import {
 export default {
   name: 'PageMap',
   components: {
-    // BaseHeader,
-    BaseInput,
-    BaseInfoCard,
     YandexMap,
     YandexMapDefaultSchemeLayer,
     YandexMapDefaultFeaturesLayer,
@@ -106,11 +100,6 @@ export default {
   data() {
     return {
       idActive: 0,
-      // header: {
-      //   icon: '🗺️',
-      //   title: 'Карта водоемов',
-      //   subtitle: 'Лучшие места рыбалки',
-      // },
       searchText: '',
       mapSettings: {
         location: {
