@@ -52,7 +52,7 @@ function getScore(conditions, value, weights) {
   }
   return 0
 }
-function conditions (score){
+function conditions(score) {
   if (score >= 85) return 'Отличные'
   if (score >= 70) return 'Хорошие'
   if (score >= 50) return 'Средние'
@@ -61,14 +61,14 @@ function conditions (score){
 }
 
 export function calcBiteScore(weather) {
-  const speed = getScore(SPEED, weather.speed, WEIGHTS.speed);
-  const pressure = getScore(PRESSURE, weather.pressure, WEIGHTS.pressure);
-  const temperature = getScore(TEMPERATURE, weather.temp, WEIGHTS.temperature);
-  const humidity = getScore(HUMIDITY, weather.humidity, WEIGHTS.humidity);
-  const clouds = getScore(CLOUDS, weather.clouds, WEIGHTS.clouds);
-  const moon =  Math.round(getScore(MOON, weather.moon.age, WEIGHTS.moon));
-  const total = Math.round(speed + pressure + temperature + humidity + clouds + moon);
-  const condition = conditions(total);
+  const speed = getScore(SPEED, weather.speed, WEIGHTS.speed)
+  const pressure = getScore(PRESSURE, weather.pressure, WEIGHTS.pressure)
+  const temperature = getScore(TEMPERATURE, weather.temp, WEIGHTS.temperature)
+  const humidity = getScore(HUMIDITY, weather.humidity, WEIGHTS.humidity)
+  const clouds = getScore(CLOUDS, weather.clouds, WEIGHTS.clouds)
+  const moon = Math.round(getScore(MOON, weather.moon.age, WEIGHTS.moon))
+  const total = Math.round(speed + pressure + temperature + humidity + clouds + moon)
+  const condition = conditions(total)
 
-  return {total,condition,parts:{speed,pressure,temperature,humidity,clouds,moon}}
+  return { total, condition, parts: { speed, pressure, temperature, humidity, clouds, moon } }
 }

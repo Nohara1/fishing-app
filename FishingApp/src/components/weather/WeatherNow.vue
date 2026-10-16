@@ -68,10 +68,10 @@
 <script>
 import BaseInnerItem from '../ui/BaseInnerItem.vue'
 import BaseList from '../ui/BaseList.vue'
-import {calcBiteScore} from '@/utils/biteScore.js'
+import { calcBiteScore } from '@/utils/biteScore.js'
 
 export default {
-  name: 'WeatheNow',
+  name: 'WeatherNow',
   components: {
     BaseInnerItem,
     BaseList,
@@ -92,7 +92,7 @@ export default {
     }
   },
   computed: {
-    bite(){
+    bite() {
       return calcBiteScore(this.weatherData)
     },
     weatherTemp() {

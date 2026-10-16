@@ -54,7 +54,6 @@ export const useWeatherStore = defineStore('weather', {
       const daysCount = daily.time.length
       const arr = []
 
-
       for (let i = 0; i < daysCount; i++) {
         arr.push({
           day: new Date(daily.time[i]).toLocaleString('ru-RU', {

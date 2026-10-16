@@ -55,7 +55,7 @@ import BaseInnerItem from '../ui/BaseInnerItem.vue'
 import BaseList from '../ui/BaseList.vue'
 
 export default {
-  name: 'WeatheToday',
+  name: 'WeatherToday',
   components: {
     BaseList,
     BaseInnerItem,
@@ -91,17 +91,8 @@ export default {
         },
       ],
       listHeading: 'Прогноз на сегодня',
-      // listContent: [
-      //   { icon: '☀️', title: 'Сейчас', result: '18°C', humidity: '5%', speed: '3 м/с', id: 0 },
-      //   { icon: '☀️', title: '15:00', result: '18°C', humidity: '5%', speed: '3 м/с', id: 1 },
-      //   { icon: '☀️', title: '19:00', result: '18°C', humidity: '5%', speed: '3 м/с', id: 2 },
-      //   { icon: '☀️', title: '22:00', result: '18°C', humidity: '5%', speed: '3 м/с', id: 3 },
-      //   { icon: '☀️', title: '01:00', result: '18°C', humidity: '5%', speed: '3 м/с', id: 3 },
-      //   { icon: '☀️', title: '04:00', result: '18°C', humidity: '5%', speed: '3 м/с', id: 3 },
-      // ],
     }
   },
-  methods: {},
 }
 </script>
 <style lang="scss" scoped>

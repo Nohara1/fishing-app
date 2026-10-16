@@ -41,7 +41,6 @@
 import BaseInnerItem from '../ui/BaseInnerItem.vue'
 import BaseList from '../ui/BaseList.vue'
 
-
 export default {
   name: 'WeatherWeek',
   components: {
