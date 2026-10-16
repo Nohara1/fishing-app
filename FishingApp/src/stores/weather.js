@@ -1,10 +1,24 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+
+function getWeatherIcon(icon) {
+  if (icon === 0) return '☀️'
+  if ([1, 2].includes(icon)) return '🌤️'
+  if (icon === 3) return '☁️'
+  if ([45, 48].includes(icon)) return '🌫️'
+  if ([51, 53, 55, 56, 57].includes(icon)) return '🌦️'
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(icon)) return '🌧️'
+  if ([71, 73, 75, 77, 85, 86].includes(icon)) return '❄️'
+  if ([95, 96, 99].includes(icon)) return '⛈️'
+  return '❔'
+}
+
 export const useWeatherStore = defineStore('weather', {
   state: () => ({
     weatherNow: null,
     coordsLatitude: null,
     coordsLongitude: null,
+    weatherWeek: null,
     moon: {
       age: null,
       phase: null,
@@ -33,6 +47,29 @@ export const useWeatherStore = defineStore('weather', {
     pressureCalculation: (state) => {
       if (!state.weather.pressure) return null
       return Math.round(state.weather.pressure * 0.75)
+    },
+    weekForecast: (state) => {
+      if (!state.weatherWeek) return []
+      const daily = state.weatherWeek.daily
+      const daysCount = daily.time.length
+      const arr = []
+
+
+      for (let i = 0; i < daysCount; i++) {
+        arr.push({
+          day: new Date(daily.time[i]).toLocaleString('ru-RU', {
+            month: 'long',
+            day: 'numeric',
+          }),
+          daylight: daily.daylight_duration[i],
+          temp: daily.temperature_2m_max[i],
+          sunrise: daily.sunrise[i].slice(11, 16),
+          chancerain: daily.precipitation_probability_max[i],
+          nightTemp: daily.temperature_2m_min[i],
+          icon: getWeatherIcon(daily.weathercode[i]),
+        })
+      }
+      return arr
     },
     todayWeather: (state) => {
       if (!state.weatherNow) return []
@@ -64,11 +101,29 @@ export const useWeatherStore = defineStore('weather', {
         this.fetchWeatherNow()
         this.fetchMoon()
         this.fetchWeather()
+        this.fetchWeatherWeek()
       })
     },
     setCoords(lat, lon) {
       this.coordsLatitude = lat
       this.coordsLongitude = lon
+    },
+    async fetchWeatherWeek() {
+      try {
+        const response = await axios.get('https://api.open-meteo.com/v1/forecast', {
+          params: {
+            latitude: this.coordsLatitude,
+            longitude: this.coordsLongitude,
+            daily:
+              'weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max,windspeed_10m_max,daylight_duration,sunrise',
+            timezone: 'auto',
+            forecast_days: 7,
+          },
+        })
+        this.weatherWeek = response.data
+      } catch {
+        alert('Проблема c Погодой на Неделю')
+      }
     },
     async fetchWeatherNow() {
       try {

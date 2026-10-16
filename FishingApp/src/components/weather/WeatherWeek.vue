@@ -2,11 +2,11 @@
   <div class="weather-container">
     <div class="forecast-week">
       <div class="forecast-week__inner">
-        <BaseList :lists="weekWeather" :heading="listHeading">
+        <BaseList :lists="weekForecast" :heading="listHeading">
           <template #list="{ list }">
             <div class="forecast-week__item">
               <p class="forecast-week__item-day">{{ list.day }}</p>
-              <p class="forecast-week__item-icon u-icon">{{ getWeatherIcon(list.icon) }}</p>
+              <p class="forecast-week__item-icon u-icon">{{ list.icon }}</p>
               <p class="forecast-week__item-temp">
                 {{ list.temp }}°<span>/{{ list.nightTemp }}°</span>
               </p>
@@ -40,7 +40,7 @@
 <script>
 import BaseInnerItem from '../ui/BaseInnerItem.vue'
 import BaseList from '../ui/BaseList.vue'
-import axios from 'axios'
+
 
 export default {
   name: 'WeatherWeek',
@@ -50,25 +50,13 @@ export default {
   },
   props: {
     weekForecast: {
-      type: Object,
+      type: Array,
       required: true,
-    },
-  },
-  watch: {
-    weekForecast: {
-      handler(newValue) {
-        if (newValue.lat !== null && newValue.long !== null) {
-          this.fetchWeatherWeek()
-        }
-      },
-      immediate: true,
     },
   },
   data() {
     return {
       listHeading: 'Прогноз на неделю',
-      weatherWeek: null,
-      forecastWearther: null,
       innerItemsPlanning: [
         {
           icon: '⭐',
@@ -93,63 +81,6 @@ export default {
         },
       ],
     }
-  },
-  methods: {
-    async fetchWeatherWeek() {
-      try {
-        const response = await axios.get('https://api.open-meteo.com/v1/forecast', {
-          params: {
-            latitude: this.weekForecast.lat,
-            longitude: this.weekForecast.long,
-            daily:
-              'weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max,windspeed_10m_max,daylight_duration,sunrise',
-            timezone: 'auto',
-            forecast_days: 7,
-          },
-        })
-        this.weatherWeek = response.data
-        this.weatherWeek.list = response.data.daily
-        // console.log(this.weatherWeek.list)
-      } catch {
-        alert('Проблема c Погодой на Неделю')
-      }
-    },
-    getWeatherIcon(icon) {
-      if (icon === 0) return '☀️'
-      if ([1, 2].includes(icon)) return '🌤️'
-      if (icon === 3) return '☁️'
-      if ([45, 48].includes(icon)) return '🌫️'
-      if ([51, 53, 55, 56, 57].includes(icon)) return '🌦️'
-      if ([61, 63, 65, 66, 67, 80, 81, 82].includes(icon)) return '🌧️'
-      if ([71, 73, 75, 77, 85, 86].includes(icon)) return '❄️'
-      if ([95, 96, 99].includes(icon)) return '⛈️'
-      return '❔'
-    },
-  },
-  computed: {
-    weekWeather() {
-      if (!this.weatherWeek) return []
-      const data = this.weatherWeek.daily.time.length
-      let arr = []
-      // console.log(data)
-
-      for (let i = 0; i < data; i++) {
-        arr.push({
-          day: new Date(this.weatherWeek.daily.time[i]).toLocaleString('ru-RU', {
-            month: 'long',
-            day: 'numeric',
-          }),
-          daylight: this.weatherWeek.daily.daylight_duration[i],
-          temp: this.weatherWeek.daily.temperature_2m_max[i],
-          sunrise: this.weatherWeek.daily.sunrise[i].slice(11, 16),
-          chancerain: this.weatherWeek.daily.precipitation_probability_max[i],
-          nightTemp: this.weatherWeek.daily.temperature_2m_min[i],
-          icon: this.weatherWeek.daily.weathercode[i],
-        })
-      }
-      // console.log(arr)
-      return arr
-    },
   },
 }
 </script>

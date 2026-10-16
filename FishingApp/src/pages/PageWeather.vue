@@ -36,10 +36,8 @@ export default {
   },
   computed: {
     weekForecast() {
-      return {
-        lat: useWeatherStore().coordsLatitude,
-        long: useWeatherStore().coordsLongitude,
-      }
+      const store = useWeatherStore()
+      return store.weekForecast
     },
     weatherData() {
       const store = useWeatherStore()
