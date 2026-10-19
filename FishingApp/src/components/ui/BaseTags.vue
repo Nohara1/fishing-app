@@ -10,21 +10,18 @@
     >
   </div>
 </template>
-<script>
-
-export default {
-  name: 'BaseTags',
-  emits: ['change-tag'],
-  props: {
+<script setup>
+  defineProps({
     idActive: Number,
     tags: Array,
-  },
-  methods: {
-    onClick(id) {
-      this.$emit('change-tag', id)
-    },
-  },
-}
+  })
+  defineOptions({
+    name: 'BaseTags',
+  })
+  const emit = defineEmits(['change-tag',])
+  function onClick(id){
+     emit('change-tag', id)
+   };
 </script>
 <style lang="scss" scoped>
 .tags {

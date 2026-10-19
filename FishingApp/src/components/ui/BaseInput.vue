@@ -1,22 +1,21 @@
 <template>
   <input class="input" v-bind="$attrs" :value="modelValue" @input="updateInput" />
 </template>
-<script>
-export default {
-  name: 'BaseInput',
-  emits: ['update:modelValue'],
-  props: {
+<script setup>
+  defineOptions({
+    name: 'BaseInput',
+  })
+  defineProps({
     modelValue: {
       type: String,
       default: '',
     },
-  },
-  methods: {
-    updateInput(event) {
-      this.$emit('update:modelValue', event.target.value)
-    },
-  },
-}
+  })
+  const emit = defineEmits(['update:modelValue'])
+  function updateInput(event){
+    emit('update:modelValue', event.target.value)
+  }
+
 </script>
 <style scoped>
 .input {

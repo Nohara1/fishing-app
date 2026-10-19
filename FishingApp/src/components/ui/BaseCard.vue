@@ -2,7 +2,7 @@
   <article class="card">
     <div class="card__badges">
       <div class="card__logo">
-        <BaseSvg name="pike" :width="40" :height="40" />
+        <BaseSvg name="pike" :width="width" :height="width" />
       </div>
     </div>
     <div class="card__image">
@@ -25,16 +25,16 @@
   </article>
 </template>
 
-<script>
-export default {
-  name: 'BaseCard',
-  props: {
+<script setup>
+  defineProps({
     card: {
       type: Object,
       required: true,
     },
-  },
-}
+  })
+  defineOptions({
+    name: 'BaseCard',
+  })
 </script>
 
 <style scoped lang="scss">

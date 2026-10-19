@@ -9,16 +9,16 @@
     </div>
   </header>
 </template>
-<script>
-export default {
-  name: 'BaseHeader',
-  props: {
+<script setup>
+  defineOptions({
+    name: 'BaseHeader',
+  })
+  defineProps({
     header: {
       type: Object,
       required: true,
     },
-  },
-}
+  })
 </script>
 <style lang="scss" scoped>
 .header {

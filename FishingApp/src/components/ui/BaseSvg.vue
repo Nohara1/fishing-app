@@ -3,10 +3,8 @@
     <use :href="'#icon-' + name"></use>
   </svg>
 </template>
-<script>
-export default {
-  name: 'BaseSvg',
-  props: {
+<script setup>
+  defineProps({
     name: {
       type: String,
       required: true,
@@ -19,7 +17,9 @@ export default {
       type: [Number,String],
       default: 30,
     }
-  },
-}
+  })
+  defineOptions({
+    name: 'BaseSvg',
+  })
 </script>
 <style lang="scss" scoped></style>
