@@ -10,15 +10,15 @@
   </header>
 </template>
 <script setup>
-  defineOptions({
-    name: 'BaseHeader',
-  })
-  defineProps({
-    header: {
-      type: Object,
-      required: true,
-    },
-  })
+defineOptions({
+  name: 'BaseHeader',
+})
+defineProps({
+  header: {
+    type: Object,
+    required: true,
+  },
+})
 </script>
 <style lang="scss" scoped>
 .header {

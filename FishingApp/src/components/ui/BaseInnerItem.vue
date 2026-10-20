@@ -15,19 +15,19 @@
     </div>
   </div>
 </template>
-<script>
-export default {
+<script setup>
+import { computed } from 'vue'
+defineOptions({
   name: 'BaseInnerItem',
-  props: {
-    innerItems: Array,
-    variant: String,
-  },
-  computed: {
-    innerItemClass() {
-      return ['inner-item', this.variant && `inner-item--${this.variant}`]
-    },
-  },
-}
+})
+const props = defineProps({
+  innerItems: Array,
+  variant: String,
+})
+const innerItemClass = computed(() => [
+  'inner-item',
+  props.variant && `inner-item--${props.variant}`,
+])
 </script>
 <style lang="scss" scoped>
 .inner-items {

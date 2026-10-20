@@ -11,17 +11,17 @@
   </div>
 </template>
 <script setup>
-  defineProps({
-    idActive: Number,
-    tags: Array,
-  })
-  defineOptions({
-    name: 'BaseTags',
-  })
-  const emit = defineEmits(['change-tag',])
-  function onClick(id){
-     emit('change-tag', id)
-   };
+defineProps({
+  idActive: Number,
+  tags: Array,
+})
+defineOptions({
+  name: 'BaseTags',
+})
+const emit = defineEmits(['change-tag'])
+function onClick(id) {
+  emit('change-tag', id)
+}
 </script>
 <style lang="scss" scoped>
 .tags {

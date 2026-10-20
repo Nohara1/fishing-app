@@ -38,7 +38,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: 'WeatherWeek',
   props: {

@@ -21,27 +21,22 @@
     </div>
   </div>
 </template>
-<script>
-export default {
+<script setup>
+import { computed } from 'vue'
+defineOptions({
   name: 'BaseList',
-  props: {
-    heading: String,
-    icon: String,
-    lists: Array,
-    variant: {
-      type: String,
-    },
-    as: {
-      type: String,
-      default: 'ul',
-    },
+})
+const props = defineProps({
+  heading: String,
+  icon: String,
+  lists: Array,
+  variant: String,
+  as: {
+    type: String,
+    default: 'ul',
   },
-  computed: {
-    listClasses() {
-      return ['list', this.variant && `list--${this.variant}`]
-    },
-  },
-}
+})
+const listClasses = computed(() => ['list', props.variant && `list--${props.variant}`])
 </script>
 <style lang="scss" scoped>
 ol {

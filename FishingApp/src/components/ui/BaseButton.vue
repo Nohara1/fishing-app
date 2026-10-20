@@ -9,27 +9,28 @@
   </button>
 </template>
 
-<script>
-export default {
+<script setup>
+import { computed } from 'vue'
+defineOptions({
   name: 'BaseButton',
-  props: {
-    icon: {
-      type: String,
-    },
-    variant: {
-      type: String,
-    },
-    active: {
-      type: Boolean,
-      default: false,
-    },
+})
+const props = defineProps({
+  icon: {
+    type: String,
   },
-  computed: {
-    buttonClasses() {
-      return ['button', this.variant && `button--${this.variant}`, { active: this.active }]
-    },
+  variant: {
+    type: String,
   },
-}
+  active: {
+    type: Boolean,
+    default: false,
+  },
+})
+const buttonClasses = computed(() => [
+  'button',
+  props.variant && `button--${props.variant}`,
+  { active: props.active },
+])
 </script>
 
 <style scoped lang="scss">

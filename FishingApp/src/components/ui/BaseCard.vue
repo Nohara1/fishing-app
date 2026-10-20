@@ -26,15 +26,15 @@
 </template>
 
 <script setup>
-  defineProps({
-    card: {
-      type: Object,
-      required: true,
-    },
-  })
-  defineOptions({
-    name: 'BaseCard',
-  })
+defineProps({
+  card: {
+    type: Object,
+    required: true,
+  },
+})
+defineOptions({
+  name: 'BaseCard',
+})
 </script>
 
 <style scoped lang="scss">

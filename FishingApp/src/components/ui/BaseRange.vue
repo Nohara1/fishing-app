@@ -1,11 +1,10 @@
 <template>
   <div class="range">
     <label class="range__label" :for="label.id"
-      >{{ label.name }} ({{ label.min }} - {{ label.max }}): {{ modelValue }}{{ label.si }}
+      >{{ label.name }} ({{ label.min }} - {{ label.max }}): {{ model }}{{ label.si }}
     </label>
     <input
-      :value="modelValue"
-      @input="onInput"
+      v-model.number="model"
       type="range"
       :min="label.min"
       :max="label.max"
@@ -16,26 +15,17 @@
   </div>
 </template>
 
-<script>
-export default {
+<script setup>
+const model = defineModel({ type: Number, default: 0 })
+defineProps({
+  label: {
+    type: Object,
+    required: true,
+  },
+})
+defineOptions({
   name: 'BaseRange',
-  props: {
-    modelValue: {
-      type: Number,
-      default: 0,
-    },
-    label: {
-      type: Object,
-      required: true,
-    },
-  },
-  emits: ['update:modelValue'],
-  methods: {
-    onInput(event) {
-      this.$emit('update:modelValue', event.target.valueAsNumber)
-    },
-  },
-}
+})
 </script>
 
 <style scoped lang="scss">
