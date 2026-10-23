@@ -8,26 +8,19 @@
         <h2 class="sidebar__navigation-title">{{ button.title }}</h2>
         <p class="sidebar__navigation-subtitle">{{ button.subtitle }}</p>
       </div>
-    </button></RouterLink
-  >
-  <!-- <button type="button" class="sidebar__navigation-item">
-    <span class="sidebar__navigation-logo">{{ button.logo }}</span>
-    <div class="sidebar__navigation-text">
-      <h2 class="sidebar__navigation-title">{{ button.title }}</h2>
-      <p class="sidebar__navigation-subtitle">{{ button.subtitle }}</p>
-    </div>
-  </button> -->
+    </button>
+  </RouterLink>
 </template>
-<script>
-export default {
+<script setup>
+defineOptions({
   name: 'SideBarNavigationItem',
-  props: {
-    button: {
+})
+defineProps({
+  button: {
       type: Object,
       required: true,
     },
-  },
-}
+})
 </script>
 <style lang="scss" scoped>
 .sidebar__navigation {

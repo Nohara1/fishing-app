@@ -31,11 +31,12 @@
     </div>
   </div>
 </template>
-<script>
-export default {
+<script setup>
+defineOptions({
   name: 'SideBarHeader',
-  props: {
-    heading: {
+})
+defineProps({
+  heading: {
       type: String,
       default: 'FishDay',
     },
@@ -43,8 +44,7 @@ export default {
       type: String,
       default: 'Помощник рыбака',
     },
-  },
-}
+})
 </script>
 <style lang="scss" scoped>
 .sidebar {

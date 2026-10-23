@@ -7,79 +7,70 @@
     </div>
   </aside>
 </template>
-<script>
+<script setup>
 import SideBarHeader from '@/components/sidebar/SideBarHeader.vue'
 import SideBarNavigation from '@/components/sidebar/SideBarNavigation.vue'
 import SideBarAdvice from '@/components/sidebar/SideBarAdvice.vue'
 
-export default {
+defineOptions({
   name: 'SideBar',
-  components: {
-    SideBarHeader,
-    SideBarNavigation,
-    SideBarAdvice,
+})
+const advice = [
+  { subtitle: 'Используйте карту для поиска лучших мест рыбалки рядом с вами' },
+  { subtitle: 'Раннее утро - лучшее время для рыбалки' },
+  { subtitle: 'Выбирайте места с течением для активной рыбы' },
+  { subtitle: 'Используйте карту для поиска лучших мест рыбалки рядом с вами' },
+]
+const buttons = [
+  {
+    name: 'map',
+    width: 48,
+    height: 48,
+    title: 'Карта',
+    subtitle: 'Лучшие места рыбалки',
+    link: '',
   },
-  data() {
-    return {
-      advice: [
-        { subtitle: 'Используйте карту для поиска лучших мест рыбалки рядом с вами' },
-        { subtitle: 'Раннее утро - лучшее время для рыбалки' },
-        { subtitle: 'Выбирайте места с течением для активной рыбы' },
-        { subtitle: 'Используйте карту для поиска лучших мест рыбалки рядом с вами' },
-      ],
-      buttons: [
-        {
-          name: 'pike',
-          width: 50,
-          height: 50,
-          title: 'Карта',
-          subtitle: 'Лучшие места рыбалки',
-          link: '',
-        },
-        {
-          name: 'pike',
-          width: 50,
-          height: 50,
-          title: 'Рыба',
-          subtitle: 'Справочник видов рыб',
-          link: 'fishes',
-        },
-        {
-          name: 'pike',
-          width: 50,
-          height: 50,
-          title: 'Погода',
-          subtitle: 'Прогноз и советы',
-          link: 'weather',
-        },
-        {
-          name: 'pike',
-          width: 50,
-          height: 50,
-          title: 'Прикормка',
-          subtitle: 'Рецепт приманок',
-          link: 'bait',
-        },
-        {
-          name: 'pike',
-          width: 50,
-          height: 50,
-          title: 'Мой дневник',
-          subtitle: 'Записи об уловах',
-          link: 'diary',
-        },
-        {
-          name: 'pike',
-          width: 50,
-          height: 50,
-          title: 'О приложении',
-          subtitle: 'Инструкция и справка',
-          link: 'about',
-        },
-      ],
-    }
+  {
+    name: 'fish',
+    width: 48,
+    height: 48,
+    title: 'Рыба',
+    subtitle: 'Справочник видов рыб',
+    link: 'fishes',
   },
-}
+  {
+    name: 'weather',
+    width: 48,
+    height: 48,
+    title: 'Погода',
+    subtitle: 'Прогноз и советы',
+    link: 'weather',
+  },
+  {
+    name: 'bucket',
+    width: 48,
+    height: 48,
+    title: 'Прикормка',
+    subtitle: 'Рецепт приманок',
+    link: 'bait',
+  },
+  {
+    name: 'diary',
+    width: 48,
+    height: 48,
+    title: 'Мой дневник',
+    subtitle: 'Записи об уловах',
+    link: 'diary',
+  },
+  {
+    name: 'about',
+    width: 48,
+    height: 48,
+    title: 'О приложении',
+    subtitle: 'Инструкция и справка',
+    link: 'about',
+  },
+]
 </script>
 <style lang="scss" scoped>
 .sidebar {

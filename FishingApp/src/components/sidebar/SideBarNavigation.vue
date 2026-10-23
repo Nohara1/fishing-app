@@ -5,26 +5,17 @@
     </nav>
   </div>
 </template>
-<script>
+<script setup>
 import SideBarNavigationItem from '@/components/sidebar/SideBarNavigationItem.vue'
-
-export default {
+defineOptions({
   name: 'SideBarNavigation',
-  components: {
-    SideBarNavigationItem,
-  },
-  props: {
-    buttons: {
+})
+defineProps({
+  buttons: {
       type: Array,
       required: true,
     },
-  },
-  data() {
-    return {
-      searchText: '',
-    }
-  },
-}
+})
 </script>
 <style lang="scss" scoped>
 .sidebar__navigation {

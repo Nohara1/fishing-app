@@ -1,7 +1,9 @@
 <template>
   <div class="sidebar__advice">
     <div class="sidebar__advice-content">
-      <span class="sidebar__advice-logo">💡</span>
+      <span class="sidebar__advice-logo">
+        <BaseSvg name="light" :width="20" :height="20" />
+      </span>
       <div class="sidebar__advice-text">
         <span class="sidebar__advice-title">{{ title }}</span>
         <span v-if="advice[currentAdviceIndex]" class="sidebar__advice-subtitle">{{
@@ -11,15 +13,14 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'SideBarAdvice',
-  data() {
-    return {
-      currentAdviceIndex: 0,
-    }
-  },
-  props: {
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+const currentAdviceIndex = ref(0)
+let intervalId = 0
+  defineOptions({
+    name: 'SideBarAdvice',
+  })
+  const props = defineProps({
     title: {
       type: String,
       default: 'Совет',
@@ -28,28 +29,24 @@ export default {
       type: Array,
       required: true,
     },
-  },
-  methods: {
-    changeAdvice() {
-      this.currentAdviceIndex++
-      if (this.currentAdviceIndex >= this.advice.length) {
-        this.currentAdviceIndex = 0
-      }
-    },
-  },
-  mounted() {
-    setInterval(() => {
-      this.changeAdvice()
-    }, 600000)
-  },
-}
+  })
+  function changeAdvice() {
+    currentAdviceIndex.value++
+    if (currentAdviceIndex.value >= props.advice.length) {
+      currentAdviceIndex.value = 0
+    }
+  }
+  onMounted(() => {
+    intervalId = setInterval(() =>{changeAdvice()},600000)
+  })
+  onUnmounted(() => {
+    clearInterval(intervalId)
+  })
+
 </script>
 <style lang="scss" scoped>
 .sidebar {
   &__advice {
-    &-logo {
-      font-size: 24px;
-    }
     &-content {
       display: flex;
       gap: 12px;
