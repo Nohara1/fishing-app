@@ -9,34 +9,29 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import Sidebar from './components/sidebar/Sidebar.vue'
 import { useWeatherStore } from './stores/weather'
+import {computed,onMounted} from 'vue'
+import {useRoute} from 'vue-router'
 
-export default {
-  components: {
-    Sidebar,
-    // PageMap,
-  },
-  data() {
-    return {
-      headers: {
-        PageMap: { icon: '🗺️', title: 'Карта водоёмов', subtitle: 'Лучшие места рыбалки' },
-        PageFishes: { icon: '🐟', title: 'Рыба', subtitle: 'Справочник видов рыб' },
-        PageWeather: { icon: '🌤️', title: 'Погода', subtitle: 'Прогноз и советы' },
-        PageBait: { icon: '🐟', title: 'Прикормка', subtitle: 'Рецепты прикормок' },
-      },
-    }
-  },
-  computed: {
-    currentHeader() {
-      return this.headers[this.$route.name]
-    },
-  },
-  mounted() {
-    useWeatherStore().init()
-  },
+const store = useWeatherStore()
+const route = useRoute()
+
+const headers = {
+  PageMap: { icon: '🗺️', title: 'Карта водоёмов', subtitle: 'Лучшие места рыбалки' },
+  PageFishes: { icon: '🐟', title: 'Рыба', subtitle: 'Справочник видов рыб' },
+  PageWeather: { icon: '🌤️', title: 'Погода', subtitle: 'Прогноз и советы' },
+  PageBait: { icon: '🐟', title: 'Прикормка', subtitle: 'Рецепты прикормок' },
 }
+const currentHeader = computed (() => {
+  return headers[route.name]
+})
+
+onMounted(() => {
+  store.init()
+})
+
 </script>
 <style lang="scss">
 @font-face {

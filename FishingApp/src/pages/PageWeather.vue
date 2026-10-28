@@ -6,60 +6,46 @@
     <WeatherWeek v-if="idActive === 2" :weekForecast="weekForecast" />
   </div>
 </template>
-<script>
-import WeatherNow from '@/components/weather/WeatherNow.vue'
+<script setup>
 import WeatherToday from '@/components/weather/WeatherToday.vue'
+import WeatherNow from '@/components/weather/WeatherNow.vue'
 import WeatherWeek from '@/components/weather/WeatherWeek.vue'
 import { useWeatherStore } from '@/stores/weather'
-export default {
-  components: {
-    WeatherNow,
-    WeatherToday,
-    WeatherWeek,
-  },
-  data() {
-    return {
-      idActive: 0,
-      tags: [
-        { name: 'Cейчас', id: 0 },
-        { name: 'Сегодня', id: 1 },
-        { name: 'Неделя', id: 2 },
-      ],
-    }
-  },
-  methods: {
-    activeClass(id) {
-      this.idActive = id
-    },
-  },
-  computed: {
-    weekForecast() {
-      const store = useWeatherStore()
-      return store.weekForecast
-    },
-    weatherData() {
-      const store = useWeatherStore()
-      return {
-        location: store.location,
-        temp: store.weather.temp,
-        speed: store.weather.speed,
-        pressure: store.pressureCalculation,
-        cloud: store.weather.cloud,
-        humidity: store.weather.humidity,
-        clouds: store.weather.clouds,
-        iconUrl: store.iconUrl,
-        visibility: store.visibilityCalculation,
-        moon: {
-          age: store.moon.age,
-          phase: store.moon.phase,
-        },
-      }
-    },
-    todayWeather() {
-      return useWeatherStore().todayWeather
-    },
-  },
+import {ref,computed} from 'vue'
+const idActive = ref(0)
+const store = useWeatherStore()
+const tags =
+[
+  { name: 'Cейчас', id: 0 },
+  { name: 'Сегодня', id: 1 },
+  { name: 'Неделя', id: 2 },
+]
+function activeClass(id){
+  idActive.value = id
 }
+const weekForecast = computed(() => {
+  return store.weekForecast
+})
+const weatherData = computed(() =>{
+  return {
+    location: store.location,
+    temp: store.weather.temp,
+    speed: store.weather.speed,
+    pressure: store.pressureCalculation,
+    cloud: store.weather.cloud,
+    humidity: store.weather.humidity,
+    clouds: store.weather.clouds,
+    iconUrl: store.iconUrl,
+    visibility: store.visibilityCalculation,
+    moon: {
+      age: store.moon.age,
+      phase: store.moon.phase,
+    },
+  }
+})
+const todayWeather = computed(() => {
+  return store.todayWeather
+})
 </script>
 <style lang="scss" scoped>
 .weather-container {

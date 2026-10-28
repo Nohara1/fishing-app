@@ -36,96 +36,87 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      idActive: 0,
-      searchText: '',
-      filters: [
-        { icon: '', text: 'Вся рыба', id: 0 },
-        { icon: '🌱', text: 'Весна', id: 1 },
-        { icon: '🍂', text: 'Осень', id: 2 },
-        { icon: '☀️', text: 'Лето', id: 3 },
-        { icon: '🌱', text: 'Зима', id: 4 },
-      ],
-      cards: [
-        {
-          logo: '/fishing-app/image/icon/shcuka.png',
-          image: '/fishing-app/image/fish-card-image/fish-one.webp',
-          tag: 'Весна',
-          latinName: 'Esox lucius',
-          title: 'Щука',
-          time: 'Утром и вечером',
-          temperature: '8-18°C',
-        },
-        {
-          logo: '/fishing-app/image/icon/shcuka.png',
-          image: '/fishing-app/image/fish-card-image/fish-two.webp',
-          tag: 'Осень',
-          latinName: 'Esox lucius',
-          title: 'Судак',
-          time: 'На рассвете и в сумерках',
-          temperature: '12-22°C',
-        },
-        {
-          logo: '/fishing-app/image/icon/shcuka.png',
-          image: '/fishing-app/image/fish-card-image/fish-three.webp',
-          tag: 'Зима',
-          latinName: 'Esox lucius',
-          title: 'Карп',
-          time: 'Утром и вечером',
-          temperature: '18-25°C',
-        },
-        {
-          logo: '/fishing-app/image/icon/shcuka.png',
-          image: '/fishing-app/image/fish-card-image/fish-three.webp',
-          tag: 'Лето',
-          latinName: 'Esox lucius',
-          title: 'Карп',
-          time: 'Утром и вечером',
-          temperature: '18-25°C',
-        },
-        {
-          logo: '/fishing-app/image/icon/shcuka.png',
-          image: '/fishing-app/image/fish-card-image/fish-three.webp',
-          tag: 'Весна',
-          latinName: 'Esox lucius',
-          title: 'Карп',
-          time: 'Утром и вечером',
-          temperature: '18-25°C',
-        },
-        {
-          logo: '/fishing-app/image/icon/shcuka.png',
-          image: '/fishing-app/image/fish-card-image/fish-three.webp',
-          tag: 'Весна',
-          latinName: 'Esox lucius',
-          title: 'Карп',
-          time: 'Утром и вечером',
-          temperature: '18-25°C',
-        },
-      ],
-    }
+<script setup>
+import {computed,ref} from 'vue'
+const idActive = ref(0)
+const searchText = ref('')
+const filters =  [
+  { icon: '', text: 'Вся рыба', id: 0 },
+  { icon: '🌱', text: 'Весна', id: 1 },
+  { icon: '🍂', text: 'Осень', id: 2 },
+  { icon: '☀️', text: 'Лето', id: 3 },
+  { icon: '🌱', text: 'Зима', id: 4 },
+]
+const cards =
+[
+  {
+    logo: '/fishing-app/image/icon/shcuka.png',
+    image: '/fishing-app/image/fish-card-image/fish-one.webp',
+    tag: 'Весна',
+    latinName: 'Esox lucius',
+    title: 'Щука',
+    time: 'Утром и вечером',
+    temperature: '8-18°C',
   },
-  methods: {
-    activeClass(id) {
-      this.idActive = id
-    },
+  {
+    logo: '/fishing-app/image/icon/shcuka.png',
+    image: '/fishing-app/image/fish-card-image/fish-two.webp',
+    tag: 'Осень',
+    latinName: 'Esox lucius',
+    title: 'Судак',
+    time: 'На рассвете и в сумерках',
+    temperature: '12-22°C',
   },
-  computed: {
-    filteredCards() {
-      const search = this.searchText.toLowerCase()
-      const activeFilter = this.filters.find((filter) => filter.id === this.idActive)
-      const activeTag = activeFilter.text.toLowerCase()
-
-      return this.cards
-        .filter((card) => card.title.toLowerCase().includes(search))
-        .filter((card) =>
-          this.idActive === 0 ? this.cards : card.tag.toLowerCase().includes(activeTag),
-        )
-    },
+  {
+    logo: '/fishing-app/image/icon/shcuka.png',
+    image: '/fishing-app/image/fish-card-image/fish-three.webp',
+    tag: 'Зима',
+    latinName: 'Esox lucius',
+    title: 'Карп',
+    time: 'Утром и вечером',
+    temperature: '18-25°C',
   },
+  {
+    logo: '/fishing-app/image/icon/shcuka.png',
+    image: '/fishing-app/image/fish-card-image/fish-three.webp',
+    tag: 'Лето',
+    latinName: 'Esox lucius',
+    title: 'Карп',
+    time: 'Утром и вечером',
+    temperature: '18-25°C',
+  },
+  {
+    logo: '/fishing-app/image/icon/shcuka.png',
+    image: '/fishing-app/image/fish-card-image/fish-three.webp',
+    tag: 'Весна',
+    latinName: 'Esox lucius',
+    title: 'Карп',
+    time: 'Утром и вечером',
+    temperature: '18-25°C',
+  },
+  {
+    logo: '/fishing-app/image/icon/shcuka.png',
+    image: '/fishing-app/image/fish-card-image/fish-three.webp',
+    tag: 'Весна',
+    latinName: 'Esox lucius',
+    title: 'Карп',
+    time: 'Утром и вечером',
+    temperature: '18-25°C',
+  },
+]
+function activeClass(id) {
+  idActive.value = id
 }
+const filteredCards = computed(() => {
+  const search = searchText.value.toLowerCase()
+  const activeFilter = filters.find((filter) => filter.id === idActive.value)
+  const activeTag = activeFilter.text.toLowerCase()
+  return cards
+    .filter((card) => card.title.toLowerCase().includes(search))
+    .filter((card) =>
+      idActive.value === 0 ? true : card.tag.toLowerCase().includes(activeTag),
+    )
+})
 </script>
 <style lang="scss" scoped>
 .fishes {

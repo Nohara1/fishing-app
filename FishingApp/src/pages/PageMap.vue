@@ -82,133 +82,118 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { useWeatherStore } from '@/stores/weather'
+import {ref,computed} from 'vue'
 import {
   YandexMap,
   YandexMapDefaultSchemeLayer,
   YandexMapDefaultFeaturesLayer,
 } from 'vue-yandex-maps'
-
-export default {
+defineOptions({
   name: 'PageMap',
-  components: {
-    YandexMap,
-    YandexMapDefaultSchemeLayer,
-    YandexMapDefaultFeaturesLayer,
+})
+const store = useWeatherStore()
+const idActive = ref(0)
+const searchText = ref('')
+const mapSettings = {
+  location: {
+    center: [27.57, 53.9],
+    zoom: 7,
   },
-  data() {
-    return {
-      idActive: 0,
-      searchText: '',
-      mapSettings: {
-        location: {
-          center: [27.57, 53.9],
-          zoom: 7,
-        },
-        theme: 'dark',
-      },
-      reservoirs: {
-        icon: '📍',
-        title: 'Водоёмы рядом',
-      },
-      weather: {
-        icon: '🌤️',
-        title: 'Сейчас на рыбалке',
-      },
-      reservoirsContents: [
-        {
-          id: 1,
-          name: 'Озеро Селигер',
-          value: 'Озеро',
-          distance: '45 км',
-          fishes: ['щука', 'судак', 'лещ'],
-          score: '4.5',
-        },
-        {
-          id: 2,
-          name: 'Река Волга у Астрахани',
-          value: 'Река',
-          distance: '120 км',
-          fishes: ['щука', 'судак', 'лещ'],
-          score: '4.5',
-        },
-        {
-          id: 3,
-          name: 'Рыбинское водохранилище',
-          value: 'Водохранилище',
-          distance: '45 км',
-          fishes: ['щука', 'судак', 'лещ'],
-          score: '4.5',
-        },
-        {
-          id: 4,
-          name: 'Рыбинское водохранилище',
-          value: 'Водохранилище',
-          distance: '45 км',
-          fishes: ['щука', 'судак', 'лещ'],
-          score: '4.5',
-        },
-        {
-          id: 5,
-          name: 'Рыбинское водохранилище',
-          value: 'Водохранилище',
-          distance: '45 км',
-          fishes: ['щука', 'судак', 'лещ'],
-          score: '4.5',
-        },
-        {
-          id: 6,
-          name: 'Рыбинское водохранилище',
-          value: 'Водохранилище',
-          distance: '45 км',
-          fishes: ['щука', 'судак', 'лещ'],
-          score: '4.5',
-        },
-      ],
-    }
-  },
-  methods: {
-    activeClass(id) {
-      this.idActive = id
-    },
-  },
-  computed: {
-    weatherContents() {
-      const weatherStore = useWeatherStore()
-      return [
-        {
-          key: 'Воздух',
-          value: weatherStore.weather.temp !== null ? `${weatherStore.weather.temp}°C` : '–',
-        },
-        { key: 'Вода', value: '15°C' },
-        {
-          key: 'Ветер',
-          value: weatherStore.weather.speed !== null ? `${weatherStore.weather.speed} м/с` : '–',
-        },
-        {
-          key: 'Давление',
-          value: weatherStore.pressureCalculation !== null ? weatherStore.pressureCalculation : '–',
-        },
-        { key: 'Луна', value: weatherStore.moon.phase !== null ? weatherStore.moon.phase : '–' },
-      ]
-    },
-    filteredReservoirs() {
-      const search = this.searchText.toLowerCase()
-
-      if (search == '') {
-        return this.reservoirsContents.slice(0, 3)
-      }
-
-      return this.reservoirsContents.filter((content) =>
-        content.name.toLowerCase().includes(search),
-      )
-    },
-    // moon() {
-    //   return [this.phase]
-    // },
-  },
+  theme: 'dark',
 }
+
+const reservoirs = {
+  icon: '📍',
+  title: 'Водоёмы рядом',
+}
+const weather = {
+  icon: '🌤️',
+  title: 'Сейчас на рыбалке',
+}
+const reservoirsContents = [
+  {
+    id: 1,
+    name: 'Озеро Селигер',
+    value: 'Озеро',
+    distance: '45 км',
+    fishes: ['щука', 'судак', 'лещ'],
+    score: '4.5',
+  },
+  {
+    id: 2,
+    name: 'Река Волга у Астрахани',
+    value: 'Река',
+    distance: '120 км',
+    fishes: ['щука', 'судак', 'лещ'],
+    score: '4.5',
+  },
+  {
+    id: 3,
+    name: 'Рыбинское водохранилище',
+    value: 'Водохранилище',
+    distance: '45 км',
+    fishes: ['щука', 'судак', 'лещ'],
+    score: '4.5',
+  },
+  {
+    id: 4,
+    name: 'Рыбинское водохранилище',
+    value: 'Водохранилище',
+    distance: '45 км',
+    fishes: ['щука', 'судак', 'лещ'],
+    score: '4.5',
+  },
+  {
+    id: 5,
+    name: 'Рыбинское водохранилище',
+    value: 'Водохранилище',
+    distance: '45 км',
+    fishes: ['щука', 'судак', 'лещ'],
+    score: '4.5',
+  },
+  {
+    id: 6,
+    name: 'Рыбинское водохранилище',
+    value: 'Водохранилище',
+    distance: '45 км',
+    fishes: ['щука', 'судак', 'лещ'],
+    score: '4.5',
+  },
+]
+function activeClass(id){
+    idActive.value = id
+}
+const weatherContents = computed(() => {
+  return [
+    {
+      key: 'Воздух',
+      value: store.weather.temp !== null ? `${store.weather.temp}°C` : '–',
+    },
+    { key: 'Вода', value: '15°C' },
+    {
+      key: 'Ветер',
+      value: store.weather.speed !== null ? `${store.weather.speed} м/с` : '–',
+    },
+    {
+      key: 'Давление',
+      value: store.pressureCalculation !== null ? store.pressureCalculation : '–',
+    },
+    { key: 'Луна', value: store.moon.phase !== null ? store.moon.phase : '–' },
+  ]
+})
+const filteredReservoirs = computed(() => {
+  const search = searchText.value.toLowerCase()
+
+  if (search == '') {
+    return reservoirsContents.slice(0, 3)
+  }
+
+  return reservoirsContents.filter((content) =>
+    content.name.toLowerCase().includes(search),
+  )
+})
 </script>
 <style lang="scss" scoped>
 .map-page {

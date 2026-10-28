@@ -150,114 +150,10 @@
   </div>
 </template>
 <script>
+import baits  from '@/data/baits.json'
 export default {
   data() {
     return {
-      baits: [
-        {
-          id: 1,
-          name: 'Универсальная сладкая (стоячая вода)',
-          criteria: {
-            Fish: ['1', '5', '6'],
-            Vodoem: ['2', '3'],
-            Water: ['1', '2', '3', '4'],
-            Techka: ['1'],
-            Season: ['1', '2'],
-            Time: ['1', '2', '3'],
-            Method: ['1', '2'],
-            rangeTempWater: { min: 0, max: 10 },
-          },
-          ingredients: [
-            { id: 1, name: 'Панировочные сухари', amount: '40%' },
-            { id: 2, name: 'Кукурузная крупа (сухая)', amount: '25%' },
-            { id: 3, name: 'Жмых подсолнечный', amount: '15%' },
-            { id: 4, name: 'Манная крупа', amount: '10%' },
-            { id: 5, name: 'Ваниль (ванилин/арома)', amount: 'по вкусу' },
-          ],
-          cooked: [
-            { id: 1, step: 'Смешай все сухие компоненты до однородности.' },
-            { id: 2, step: 'Понемногу добавляй воду, постоянно перемешивая.' },
-            { id: 3, step: 'Дай смеси постоять 10–15 минут, чтобы компоненты набухли.' },
-            { id: 4, step: 'Доведи увлажнение до лепки шаров, но чтобы они легко распадались.' },
-            { id: 5, step: 'Добавь ванильную ароматику в самом конце и ещё раз перемешай.' },
-          ],
-          options: {
-            consistency: 'Средняя',
-            bind: 'Средняя',
-            aroma: 'Сладкий (ваниль)',
-          },
-        },
-
-        {
-          id: 2,
-          name: 'Для леща (тёплая вода, сладкие запахи)',
-          criteria: {
-            Fish: ['5'],
-            Vodoem: ['1', '2', '4'],
-            Water: ['2', '3', '4'],
-            Techka: ['1', '2'],
-            Season: ['1', '2'],
-            Time: ['1', '2', '3'],
-            Method: ['2'],
-            rangeTempWater: { min: 0, max: 30 },
-          },
-          ingredients: [
-            { id: 1, name: 'Панировочные сухари', amount: '35%' },
-            { id: 2, name: 'Отруби пшеничные', amount: '20%' },
-            { id: 3, name: 'Жмых подсолнечный', amount: '15%' },
-            { id: 4, name: 'Лён молотый/льняная мука', amount: '10%' },
-            { id: 5, name: 'Сладкая ароматика (ваниль/карамель)', amount: 'по вкусу' },
-          ],
-          cooked: [
-            { id: 1, step: 'Смешай сухари, отруби и жмых.' },
-            { id: 2, step: 'Добавь молотый лён и перемешай.' },
-            { id: 3, step: 'Увлажняй в 2–3 подхода, чтобы не перелить воду.' },
-            { id: 4, step: 'Выдержи 15 минут, затем снова перемешай.' },
-            {
-              id: 5,
-              step: 'Добавь сладкую ароматику, проверь механику: комок лепится и “работает” в воде.',
-            },
-          ],
-          options: {
-            consistency: 'Рыхлая-средняя',
-            bind: 'Слабая-средняя',
-            aroma: 'Сладкий (ваниль/карамель)',
-          },
-        },
-        {
-          id: 3,
-          name: 'Для карпа (пластичная, хорошо лепится)',
-          criteria: {
-            Fish: ['1'],
-            Vodoem: ['2', '3', '4'],
-            Water: ['1', '2', '3'],
-            Techka: ['1', '2'],
-            Season: ['1'],
-            Time: ['2', '3'],
-            Method: ['1', '2'],
-            rangeTempWater: { min: 20, max: 30 },
-          },
-          ingredients: [
-            { id: 1, name: 'Панировочные сухари', amount: '30%' },
-            { id: 2, name: 'Пшено (распаренное/варёное)', amount: '25%' },
-            { id: 3, name: 'Кукуруза дроблёная/крупа', amount: '20%' },
-            { id: 4, name: 'Манка', amount: '15%' },
-            { id: 5, name: 'Ароматика (ваниль/анис/карамель)', amount: 'по вкусу' },
-          ],
-          cooked: [
-            { id: 1, step: 'Подготовь пшено: распарь/отвари до мягкости и остуди.' },
-            { id: 2, step: 'Смешай сухари, дроблёную кукурузу и манку.' },
-            { id: 3, step: 'Добавь пшено и перемешай до пластичной массы.' },
-            { id: 4, step: 'При необходимости подлей немного воды, чтобы смесь хорошо лепилась.' },
-            { id: 5, step: 'Добавь ароматику, сформируй шары нужного размера.' },
-          ],
-          options: {
-            consistency: 'Пластичная',
-            bind: 'Хорошая',
-            aroma: 'Сладкий (ваниль/анис/карамель)',
-          },
-        },
-      ],
       activeRecipeId: null,
       formData: this.getDefaultFormData(),
       formFields: [
@@ -394,7 +290,7 @@ export default {
       let bestId = null
       let bestScore = -1
 
-      this.baits.forEach((bait) => {
+      baits.forEach((bait) => {
         const score = this.getScore(bait)
         if (score >= bestScore) {
           bestScore = score
@@ -405,7 +301,7 @@ export default {
       return bestId
     }, // выбираем лучшую прикормку что подошла по критериям
     resultBait() {
-      return this.baits.find((bait) => bait.id === this.activeRecipeId) || null
+      return baits.find((bait) => bait.id === this.activeRecipeId) || null
     }, // функция возвращает первый элемент(в нашем случчаи обьект с прикормкой) с нужным id лиюо если ниче не нащел то null
   },
 }
