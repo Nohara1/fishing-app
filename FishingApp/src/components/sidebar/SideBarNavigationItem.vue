@@ -17,9 +17,9 @@ defineOptions({
 })
 defineProps({
   button: {
-      type: Object,
-      required: true,
-    },
+    type: Object,
+    required: true,
+  },
 })
 </script>
 <style lang="scss" scoped>

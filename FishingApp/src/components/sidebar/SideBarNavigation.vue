@@ -12,9 +12,9 @@ defineOptions({
 })
 defineProps({
   buttons: {
-      type: Array,
-      required: true,
-    },
+    type: Array,
+    required: true,
+  },
 })
 </script>
 <style lang="scss" scoped>

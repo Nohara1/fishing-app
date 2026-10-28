@@ -37,44 +37,40 @@
     </div>
   </div>
 </template>
-<script>
-export default {
+<script setup>
+defineProps({
+  weekForecast: {
+    type: Array,
+    required: true,
+  },
+})
+defineOptions({
   name: 'WeatherWeek',
-  props: {
-    weekForecast: {
-      type: Array,
-      required: true,
-    },
+})
+const listHeading = 'Прогноз на неделю'
+const innerItemsPlanning = [
+  {
+    icon: '⭐',
+    title: 'Лучшие дни',
+    text: 'Сегодня, Суббота',
+    color: 'green',
+    id: 0,
   },
-  data() {
-    return {
-      listHeading: 'Прогноз на неделю',
-      innerItemsPlanning: [
-        {
-          icon: '⭐',
-          title: 'Лучшие дни',
-          text: 'Сегодня, Суббота',
-          color: 'green',
-          id: 0,
-        },
-        {
-          icon: '⚠️',
-          title: 'Осторожно',
-          text: 'Воскресенье - дождь',
-          color: 'orange',
-          id: 1,
-        },
-        {
-          icon: '📈',
-          title: 'Тенденция',
-          text: 'Улучшение к концу недели',
-          color: 'blue',
-          id: 2,
-        },
-      ],
-    }
+  {
+    icon: '⚠️',
+    title: 'Осторожно',
+    text: 'Воскресенье - дождь',
+    color: 'orange',
+    id: 1,
   },
-}
+  {
+    icon: '📈',
+    title: 'Тенденция',
+    text: 'Улучшение к концу недели',
+    color: 'blue',
+    id: 2,
+  },
+]
 </script>
 <style lang="scss" scoped>
 .forecast-week {

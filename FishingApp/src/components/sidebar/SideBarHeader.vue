@@ -37,13 +37,13 @@ defineOptions({
 })
 defineProps({
   heading: {
-      type: String,
-      default: 'FishDay',
-    },
-    subheading: {
-      type: String,
-      default: 'Помощник рыбака',
-    },
+    type: String,
+    default: 'FishDay',
+  },
+  subheading: {
+    type: String,
+    default: 'Помощник рыбака',
+  },
 })
 </script>
 <style lang="scss" scoped>

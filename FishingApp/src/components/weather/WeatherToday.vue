@@ -50,43 +50,39 @@
     </div>
   </div>
 </template>
-<script>
-export default {
+<script setup>
+defineOptions({
   name: 'WeatherToday',
-  props: {
-    todayWeather: {
-      type: Array,
-      required: true,
-    },
+})
+defineProps({
+  todayWeather: {
+    type: Array,
+    required: true,
   },
-  data() {
-    return {
-      innerItemsAttention: [
-        {
-          icon: '⚠️',
-          title: 'Обратите внимание!',
-          text: 'После 15:00 возможен небольшой дождь. Это может улучшить клёв, но подготовьте дождевик.',
-          id: 0,
-        },
-      ],
-      innerItemsRecommendations: [
-        {
-          icon: '🌅',
-          title: 'Утром (5:30-8:00)',
-          text: 'Идеальное время для щуки. Используйте воблеры и блесны у камышей.',
-          id: 0,
-        },
-        {
-          icon: '🌆',
-          title: 'Вечером (18:00-21:30)',
-          text: 'Пик активности! Отличное время для любой хищной рыбы.',
-          id: 1,
-        },
-      ],
-      listHeading: 'Прогноз на сегодня',
-    }
+})
+const innerItemsAttention = [
+  {
+    icon: '⚠️',
+    title: 'Обратите внимание!',
+    text: 'После 15:00 возможен небольшой дождь. Это может улучшить клёв, но подготовьте дождевик.',
+    id: 0,
   },
-}
+]
+const innerItemsRecommendations = [
+  {
+    icon: '🌅',
+    title: 'Утром (5:30-8:00)',
+    text: 'Идеальное время для щуки. Используйте воблеры и блесны у камышей.',
+    id: 0,
+  },
+  {
+    icon: '🌆',
+    title: 'Вечером (18:00-21:30)',
+    text: 'Пик активности! Отличное время для любой хищной рыбы.',
+    id: 1,
+  },
+]
+const listHeading = 'Прогноз на сегодня'
 </script>
 <style lang="scss" scoped>
 .forecast {

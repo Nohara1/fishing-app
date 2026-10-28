@@ -65,76 +65,70 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { calcBiteScore } from '@/utils/biteScore.js'
+import { computed } from 'vue'
 
-export default {
+defineOptions({
   name: 'WeatherNow',
-  props: {
-    weatherData: {
-      type: Object,
-      required: true,
-    },
+})
+const props = defineProps({
+  weatherData: {
+    type: Object,
+    required: true,
   },
-  data() {
-    return {
-      listHeading: 'Анализ Условий',
-      innerItemsConditions: [
-        { icon: '🌅', title: '05:30 - 08:00', text: 'Высокая активность', id: 0 },
-        { icon: '🌅', title: '18:00 - 21:30', text: 'Очень высокая активность', id: 1 },
-      ],
-    }
-  },
-  computed: {
-    bite() {
-      return calcBiteScore(this.weatherData)
-    },
-    weatherTemp() {
-      return this.weatherData.temp !== null ? `${this.weatherData.temp}°C` : '–'
-    },
-    weatherLocation() {
-      return this.weatherData.location !== null ? `${this.weatherData.location}` : '–'
-    },
-    weatherSpeed() {
-      return this.weatherData.speed !== null ? `${this.weatherData.speed} м/с` : '–'
-    },
-    weatherCloud() {
-      return this.weatherData.cloud !== null ? `${this.weatherData.cloud}` : '–'
-    },
-    moonPhase() {
-      const phase = this.weatherData.moon.phase
-      return phase !== null && phase !== undefined ? `${phase}` : '–'
-    },
-    weatherPressure() {
-      return this.weatherData.pressure !== null ? `${this.weatherData.pressure}` : '–'
-    },
-
-    weatherHumidity() {
-      return this.weatherData.humidity !== null ? `${this.weatherData.humidity}%` : '–'
-    },
-    weatherVisibility() {
-      return this.weatherData.visibility !== null ? `${this.weatherData.visibility} км` : '–'
-    },
-    innerItemsIndicators() {
-      return [
-        { icon: '🌅', title: this.weatherHumidity, text: 'Влажность', id: 0 },
-        { icon: '🌅', title: this.weatherPressure, text: 'мм рт.ст.', id: 1 },
-        { icon: '🌅', title: this.weatherVisibility, text: 'Видимость', id: 2 },
-        { icon: '🌅', title: this.moonPhase, text: 'Луна', id: 3 },
-      ]
-    },
-    listContent() {
-      return [
-        { icon: '📊', title: 'Давление', result: `${this.bite.parts.pressure}%`, id: 0 },
-        { icon: '💨', title: 'Ветер', result: `${this.bite.parts.speed}%`, id: 1 },
-        { icon: '🌖', title: 'Луна', result: `${this.bite.parts.moon}%`, id: 2 },
-        { icon: '🌡️', title: 'Температура', result: `${this.bite.parts.temperature}%`, id: 3 },
-        { icon: '⛅', title: 'Облачность', result: `${this.bite.parts.clouds}%`, id: 4 },
-        { icon: '🌡️', title: 'Влажность', result: `${this.bite.parts.humidity}%`, id: 5 },
-      ]
-    },
-  },
-}
+})
+const listHeading = 'Анализ Условий'
+const innerItemsConditions = [
+  { icon: '🌅', title: '05:30 - 08:00', text: 'Высокая активность', id: 0 },
+  { icon: '🌅', title: '18:00 - 21:30', text: 'Очень высокая активность', id: 1 },
+]
+const bite = computed(() => {
+  return calcBiteScore(props.weatherData)
+})
+const weatherTemp = computed(() => {
+  return props.weatherData.temp !== null ? `${props.weatherData.temp}°C` : '–'
+})
+const weatherLocation = computed(() => {
+  return props.weatherData.location !== null ? `${props.weatherData.location}` : '–'
+})
+const weatherSpeed = computed(() => {
+  return props.weatherData.speed !== null ? `${props.weatherData.speed} м/с` : '–'
+})
+const weatherCloud = computed(() => {
+  return props.weatherData.cloud !== null ? `${props.weatherData.cloud}` : '–'
+})
+const moonPhase = computed(() => {
+  const phase = props.weatherData.moon.phase
+  return phase !== null && phase !== undefined ? `${phase}` : '–'
+})
+const weatherPressure = computed(() => {
+  return props.weatherData.pressure !== null ? `${props.weatherData.pressure}` : '–'
+})
+const weatherHumidity = computed(() => {
+  return props.weatherData.humidity !== null ? `${props.weatherData.humidity}%` : '–'
+})
+const weatherVisibility = computed(() => {
+  return props.weatherData.visibility !== null ? `${props.weatherData.visibility} км` : '–'
+})
+const innerItemsIndicators = computed(() => {
+  return [
+    { icon: '🌅', title: weatherHumidity.value, text: 'Влажность', id: 0 },
+    { icon: '🌅', title: weatherPressure.value, text: 'мм рт.ст.', id: 1 },
+    { icon: '🌅', title: weatherVisibility.value, text: 'Видимость', id: 2 },
+    { icon: '🌅', title: moonPhase.value, text: 'Луна', id: 3 },
+  ]
+})
+const listContent = computed(() => {
+  return [
+    { icon: '📊', title: 'Давление', result: `${bite.value.parts.pressure}%`, id: 0 },
+    { icon: '💨', title: 'Ветер', result: `${bite.value.parts.speed}%`, id: 1 },
+    { icon: '🌖', title: 'Луна', result: `${bite.value.parts.moon}%`, id: 2 },
+    { icon: '🌡️', title: 'Температура', result: `${bite.value.parts.temperature}%`, id: 3 },
+    { icon: '⛅', title: 'Облачность', result: `${bite.value.parts.clouds}%`, id: 4 },
+    { icon: '🌡️', title: 'Влажность', result: `${bite.value.parts.humidity}%`, id: 5 },
+  ]
+})
 </script>
 <style lang="scss" scoped>
 .location {

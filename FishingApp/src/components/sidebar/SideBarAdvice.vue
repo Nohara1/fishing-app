@@ -17,32 +17,33 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 const currentAdviceIndex = ref(0)
 let intervalId = 0
-  defineOptions({
-    name: 'SideBarAdvice',
-  })
-  const props = defineProps({
-    title: {
-      type: String,
-      default: 'Совет',
-    },
-    advice: {
-      type: Array,
-      required: true,
-    },
-  })
-  function changeAdvice() {
-    currentAdviceIndex.value++
-    if (currentAdviceIndex.value >= props.advice.length) {
-      currentAdviceIndex.value = 0
-    }
+defineOptions({
+  name: 'SideBarAdvice',
+})
+const props = defineProps({
+  title: {
+    type: String,
+    default: 'Совет',
+  },
+  advice: {
+    type: Array,
+    required: true,
+  },
+})
+function changeAdvice() {
+  currentAdviceIndex.value++
+  if (currentAdviceIndex.value >= props.advice.length) {
+    currentAdviceIndex.value = 0
   }
-  onMounted(() => {
-    intervalId = setInterval(() =>{changeAdvice()},600000)
-  })
-  onUnmounted(() => {
-    clearInterval(intervalId)
-  })
-
+}
+onMounted(() => {
+  intervalId = setInterval(() => {
+    changeAdvice()
+  }, 600000)
+})
+onUnmounted(() => {
+  clearInterval(intervalId)
+})
 </script>
 <style lang="scss" scoped>
 .sidebar {
