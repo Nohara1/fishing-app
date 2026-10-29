@@ -15,6 +15,8 @@ import App from './App.vue'
 
 const app = createApp(App)
 
+const map = import.meta.env.VITE_YANDEX_MAP_KEY
+
 components.forEach((component) => {
   app.component(component.name, component)
 })
@@ -22,7 +24,8 @@ app.use(router)
 
 app.use(
   createYmaps({
-    apikey: '9871bc00-5b9a-4257-b9c2-9d3066d435ea',
+
+    apikey: map,
   }),
 )
 app.use(createPinia())

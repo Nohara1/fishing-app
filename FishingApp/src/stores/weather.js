@@ -13,6 +13,10 @@ function getWeatherIcon(icon) {
   return '❔'
 }
 
+const keyWeather = import.meta.env.VITE_WEATHER_KEY
+const keyWeatherNow = import.meta.env.VITE_WEATHER_NOW_KEY
+const keyMoon = import.meta.env.VITE_MOON_KEY
+
 export const useWeatherStore = defineStore('weather', {
   state: () => ({
     weatherNow: null,
@@ -131,7 +135,7 @@ export const useWeatherStore = defineStore('weather', {
             lat: this.coordsLatitude,
             lon: this.coordsLongitude,
             units: 'metric',
-            appid: '52eb5f938dd0ad14b1bb71d325e76d9b',
+            appid: keyWeatherNow,
           },
         })
         this.weatherNow = response.data
@@ -143,7 +147,7 @@ export const useWeatherStore = defineStore('weather', {
       try {
         const response = await axios.get('https://api.apiverve.com/v1/moonphases', {
           headers: {
-            'X-API-Key': '14372de4-9d67-4c23-890b-bcb6847e8b97',
+            'X-API-Key': keyMoon,
           },
         })
         this.moon = response.data
@@ -160,7 +164,7 @@ export const useWeatherStore = defineStore('weather', {
             lat: this.coordsLatitude,
             lon: this.coordsLongitude,
             units: 'metric',
-            appid: 'd184a227e22099fe9a84dabc31d03f28',
+            appid: keyWeather,
           },
         })
         this.weather.temp = response.data.main.temp
