@@ -149,107 +149,35 @@
     </div>
   </div>
 </template>
-<script>
-import baits  from '@/data/baits.json'
-export default {
-  data() {
-    return {
-      activeRecipeId: null,
-      formData: this.getDefaultFormData(),
-      formFields: [
-        {
-          key: 'Fish',
-          label: { id: 'fish', name: 'Целевая рыба' },
-          options: [
-            { name: 'Карп', id: '1' },
-            { name: 'Щука', id: '2' },
-            { name: 'Судак', id: '3' },
-            { name: 'Окунь', id: '4' },
-            { name: 'Лещ', id: '5' },
-            { name: 'Плотва', id: '6' },
-          ],
-        },
-        {
-          key: 'Vodoem',
-          label: { id: 'vodoem', name: 'Тип водоема' },
-          options: [
-            { name: 'Река', id: '1' },
-            { name: 'Озеро', id: '2' },
-            { name: 'Пруд', id: '3' },
-            { name: 'Водохранилище', id: '4' },
-          ],
-        },
-        {
-          key: 'Water',
-          label: { id: 'water', name: 'Прозрачность воды' },
-          options: [
-            { name: 'Очень прозрачная', id: '1' },
-            { name: 'Прозрачная', id: '2' },
-            { name: 'Слегка мутная', id: '3' },
-            { name: 'Мутная', id: '4' },
-          ],
-        },
-        {
-          key: 'Techka',
-          label: { id: 'techka', name: 'Течение' },
-          options: [
-            { name: 'Отсутствует', id: '1' },
-            { name: 'Слабое', id: '2' },
-            { name: 'Среднее', id: '3' },
-            { name: 'Сильное', id: '4' },
-          ],
-        },
-      ],
-      // deepLabel: {
-      //   id: 'deep',
-      //   name: 'Глубина ловли',
-      //   min: '0.5',
-      //   max: '20',
-      //   step: '0.5',
-      //   si: 'м',
-      // },
-      tempwaterLabel: {
-        id: 'temp',
-        name: 'Температура воды',
-        min: '0',
-        max: '30',
-        step: '1',
-        si: '°C',
-      },
-      timeLabel: {
-        id: 'time',
-        name: 'Время суток',
-      },
-      seasonLabel: {
-        id: 'season',
-        name: 'Сезон',
-      },
-      methodLabel: {
-        id: 'method',
-        name: 'Метод ловли',
-      },
-      seasonOptions: [
-        { name: 'Лето', id: '1' },
-        { name: 'Осень', id: '2' },
-        { name: 'Зима', id: '3' },
-        { name: 'Весна', id: '4' },
-      ],
-      timeOptions: [
-        { name: 'Утро', id: '1' },
-        { name: 'День', id: '2' },
-        { name: 'Вечер', id: '3' },
-        { name: 'Ночь', id: '4' },
-      ],
-      methodOptions: [
-        { name: 'Поплавочная', id: '1' },
-        { name: 'Фидер', id: '2' },
-        { name: 'Универсальная', id: '3' },
-      ],
+<script setup>
+import baits from '@/data/baits.json'
+import baitForm from '@/data/baitForm.json'
+import {ref,computed} from 'vue'
+
+const activeRecipeId = ref(null)
+const formData =  ref(getDefaultFormData())
+const {formFields,tempwaterLabel,timeLabel,seasonLabel,methodLabel,seasonOptions,timeOptions,methodOptions} = baitForm
+const bestBaitId = computed (() => {
+  let bestId = null
+  let bestScore = -1
+
+  baits.forEach((bait) => {
+    const score = getScore(bait)
+    if (score >= bestScore) {
+      bestScore = score
+      bestId = bait.id
     }
-  },
-  methods: {
-    getDefaultFormData() {
-      return {
+  })
+  if (bestScore === 0) return null
+  return bestId
+}) // выбираем лучшую прикормку что подошла по критериям
+const resultBait = computed(() => {
+  return baits.find((bait) => bait.id === activeRecipeId.value) || null
+} // функция возвращает первый элемент(в нашем случчаи обьект с прикормкой) с нужным id лиюо если ниче не нащел то null
+)
+
+function getDefaultFormData() {
+  return {
         Fish: '',
         Vodoem: '',
         Water: '',
@@ -260,51 +188,30 @@ export default {
         Time: '',
         Method: '',
       }
-    },
-    createRecipe() {
-      this.activeRecipeId = this.bestBaitId //присваиваю пустой активрецептид луший ид который есть
-    },
-    formReload() {
-      this.formData = this.getDefaultFormData() //обнуляет форму
-      this.activeRecipeId = null // обнуляем результат
-    },
-    getScore(bait) {
-      const keys = ['Fish', 'Vodoem', 'Water', 'Techka', 'Season', 'Time', 'Method']
-      let score = 0
-
-      keys.forEach((key) => {
-        const value = this.formData[key]
-        if (!value) return
-        if (bait.criteria[key]?.includes(value)) score += 1
-      })
-
-      const temp = this.formData.rangeTempWater
-      if (temp >= bait.criteria.rangeTempWater?.min && temp <= bait.criteria.rangeTempWater?.max) {
-        score += 1
-      }
-      return score
-    }, //получаю оценку при выборе инпутов , т.е. сколько значений выбранных инпутов сопадет со значениями в критериях прикормки
-  },
-  computed: {
-    bestBaitId() {
-      let bestId = null
-      let bestScore = -1
-
-      baits.forEach((bait) => {
-        const score = this.getScore(bait)
-        if (score >= bestScore) {
-          bestScore = score
-          bestId = bait.id
-        }
-      })
-      if (bestScore === 0) return null
-      return bestId
-    }, // выбираем лучшую прикормку что подошла по критериям
-    resultBait() {
-      return baits.find((bait) => bait.id === this.activeRecipeId) || null
-    }, // функция возвращает первый элемент(в нашем случчаи обьект с прикормкой) с нужным id лиюо если ниче не нащел то null
-  },
 }
+function createRecipe(){
+  activeRecipeId.value = bestBaitId.value //присваиваю пустой активрецептид луший ид который есть
+}
+function formReload() {
+  formData.value = getDefaultFormData() //обнуляет форму
+  activeRecipeId.value = null // обнуляем результат
+}
+function getScore(bait) {
+  const keys = ['Fish', 'Vodoem', 'Water', 'Techka', 'Season', 'Time', 'Method']
+  let score = 0
+
+  keys.forEach((key) => {
+    const value = formData.value[key]
+    if (!value) return
+    if (bait.criteria[key]?.includes(value)) score += 1
+  })
+
+  const temp = formData.value.rangeTempWater
+  if (temp >= bait.criteria.rangeTempWater?.min && temp <= bait.criteria.rangeTempWater?.max) {
+    score += 1
+  }
+  return score
+} //получаю оценку при выборе инпутов , т.е. сколько значений выбранных инпутов сопадет со значениями в критериях прикормки
 </script>
 <style lang="scss" scoped>
 .bait {
