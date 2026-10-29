@@ -1,5 +1,28 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import {getDistance} from '@/utils/distance.js'
+
+const WATER = {
+  cenote: "Cенот",
+  lagoon : "Лагуна",
+  lake: "Озеро",
+  oxbow : "Старица",
+  rapids : "Быстро текущий, часто бурный, участок водотока",
+  river : "Акватория реки",
+  stream : "Площадь ручья",
+  stream_pool : "Плёс реки",
+  basin : "Искусственный водоем",
+  canal : "Акватория канала",
+  ditch : "Водная зона",
+  fish_pass : "Рыбопропускные сооружения",
+  harbour : "Гавань",
+  lock : "Граница шлюза",
+  moat : "Глубокий широкий оборонительный ров",
+  pond : "Пруд",
+  reflecting_pool : "Зеркальный пруд",
+  reservoir : "Водохранилище",
+  wastewater : "отстойник станции очистки",
+}
 
 function getWeatherIcon(icon) {
   if (icon === 0) return '☀️'
@@ -19,6 +42,7 @@ const keyMoon = import.meta.env.VITE_MOON_KEY
 
 export const useWeatherStore = defineStore('weather', {
   state: () => ({
+    reservoirs: [],
     weatherNow: null,
     coordsLatitude: null,
     coordsLongitude: null,
@@ -96,6 +120,12 @@ export const useWeatherStore = defineStore('weather', {
         rain: Math.round((item.pop || 0) * 100) + '%',
       }))
     },
+    nearbyReservoirs(state){
+      return state.reservoirs.map((el) => (
+          {id: el.id, name: el.name, distance: getDistance(state.coordsLatitude,state.coordsLongitude,el.lat,el.lon),type: WATER[el.type] ?? 'вода'}
+        )
+      ).sort((a,b) => a.distance - b.distance)
+    }
   },
   actions: {
     init() {
@@ -105,11 +135,31 @@ export const useWeatherStore = defineStore('weather', {
         this.fetchMoon()
         this.fetchWeather()
         this.fetchWeatherWeek()
+        this.fetchReservoirs()
       })
     },
     setCoords(lat, lon) {
       this.coordsLatitude = lat
       this.coordsLongitude = lon
+    },
+    async fetchReservoirs(){
+      const query = `
+        [out:json][timeout:25];
+        wr["natural"="water"]["name"](around:20000,${this.coordsLatitude},${this.coordsLongitude});
+        out center;
+      `
+      try{
+        const response = await axios.get('https://overpass-api.de/api/interpreter', {
+          params:{
+            data: query,
+          }
+        })
+        this.reservoirs = response.data.elements.map((el) => ({id: el.id, name: el.tags['name:ru'] ?? el.tags.name , lat: el.center.lat, lon: el.center.lon, type: el.tags.water}))
+        console.log(this.reservoirs)
+      }catch {
+        alert('Проблема C отображением водоемов')
+        console.log('ошибка водоемов')
+      }
     },
     async fetchWeatherWeek() {
       try {
@@ -139,7 +189,7 @@ export const useWeatherStore = defineStore('weather', {
           },
         })
         this.weatherNow = response.data
-      } catch (e) {
+      } catch {
         alert('Не работает погода по часам')
       }
     },
@@ -153,7 +203,7 @@ export const useWeatherStore = defineStore('weather', {
         this.moon = response.data
         this.moon.phase = response.data.data.phase
         this.moon.age = response.data.data.lunarAgePercent
-      } catch (e) {
+      } catch {
         alert('Не загрузилась луна')
       }
     },
@@ -176,7 +226,7 @@ export const useWeatherStore = defineStore('weather', {
         this.weather.clouds = response.data.clouds.all
         this.weather.visibility = response.data.visibility
         this.weather.iconCode = response.data.weather[0].icon
-      } catch (e) {
+      } catch {
         alert('Не работает погода')
       }
     },

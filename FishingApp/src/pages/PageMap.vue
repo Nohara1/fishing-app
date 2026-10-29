@@ -55,16 +55,16 @@
                   <div class="info__content-inner">
                     <div class="info__content-head">
                       <div class="info__content-name">{{ content.name }}</div>
-                      <div class="info__content-score">{{ content.score }}</div>
+                      <div class="info__content-score">4.5</div>
                     </div>
                     <div class="info__content-body">
-                      <div class="info__content-value">{{ content.value }}</div>
-                      <div class="info__content-distance">{{ content.distance }}</div>
+                      <div class="info__content-value">Тип:{{ content.type }} </div>
+                      <div class="info__content-distance">{{ content.distance }}км.</div>
                     </div>
                     <div class="info__content-bottom">
-                      <div v-for="fish in content.fishes" :key="fish" class="info__content-fish">
+                      <!-- <div v-for="fish in content.fishes" :key="fish" class="info__content-fish">
                         🐟 {{ fish }}
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -112,56 +112,6 @@ const weather = {
   icon: '🌤️',
   title: 'Сейчас на рыбалке',
 }
-const reservoirsContents = [
-  {
-    id: 1,
-    name: 'Озеро Селигер',
-    value: 'Озеро',
-    distance: '45 км',
-    fishes: ['щука', 'судак', 'лещ'],
-    score: '4.5',
-  },
-  {
-    id: 2,
-    name: 'Река Волга у Астрахани',
-    value: 'Река',
-    distance: '120 км',
-    fishes: ['щука', 'судак', 'лещ'],
-    score: '4.5',
-  },
-  {
-    id: 3,
-    name: 'Рыбинское водохранилище',
-    value: 'Водохранилище',
-    distance: '45 км',
-    fishes: ['щука', 'судак', 'лещ'],
-    score: '4.5',
-  },
-  {
-    id: 4,
-    name: 'Рыбинское водохранилище',
-    value: 'Водохранилище',
-    distance: '45 км',
-    fishes: ['щука', 'судак', 'лещ'],
-    score: '4.5',
-  },
-  {
-    id: 5,
-    name: 'Рыбинское водохранилище',
-    value: 'Водохранилище',
-    distance: '45 км',
-    fishes: ['щука', 'судак', 'лещ'],
-    score: '4.5',
-  },
-  {
-    id: 6,
-    name: 'Рыбинское водохранилище',
-    value: 'Водохранилище',
-    distance: '45 км',
-    fishes: ['щука', 'судак', 'лещ'],
-    score: '4.5',
-  },
-]
 function activeClass(id){
     idActive.value = id
 }
@@ -187,10 +137,10 @@ const filteredReservoirs = computed(() => {
   const search = searchText.value.toLowerCase()
 
   if (search == '') {
-    return reservoirsContents.slice(0, 3)
+    return store.nearbyReservoirs.slice(0, 5)
   }
 
-  return reservoirsContents.filter((content) =>
+  return store.nearbyReservoirs.filter((content) =>
     content.name.toLowerCase().includes(search),
   )
 })
